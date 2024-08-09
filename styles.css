@@ -5,7 +5,7 @@ p {
 table {
     text-align: left;
     margin: auto;
-    background-size: 50vw;
+    background-size: 50%;
     background-repeat: no-repeat;
     background-position: center;
     background-color: rgba(255,255,255,0.5);
