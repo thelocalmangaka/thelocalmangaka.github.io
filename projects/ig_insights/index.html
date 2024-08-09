@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="../../styles.css">
+  <meta charset="UTF-8">
+  <title>The Local Mangaka | IGInsights</title>
+  <!--loads the FaceBook sdk into page-->
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '{your-app-id}',
+        cookie     : true,
+        xfbml      : true,
+        version    : '{api-version}'
+      });
+
+      FB.AppEvents.logPageView();
+
+    };
+
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</head>
+<header>
+  <p>
+    <a href="../../index.html">home</a>
+    <a href="../index.html">projects</a>
+    <a href="../../drawings/index.html">drawings</a>
+    <a href="../../about.html">about</a>
+  </p>
+</header>
+<body>
+<!--<a href='https://www.facebook.com/dialog/oauth?scope=instagram_basic,instagram_content_publish,instagram_manage_comments,instagram_manage_insights,pages_show_list,pages_read_engagement&client_id=501129039057747&display=page&extras={"setup":{"channel":"IG_API_ONBOARDING"}}&redirect_uri=https://thelocalmangaka.github.io/&response_type=token'>Login to Facebook</a>-->
+<p>TBA</p>
+</body>
+</html>

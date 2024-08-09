@@ -2,4 +2,7 @@ p {
     text-align: center;
     width: 1000px;
 }
+body {
+    width: 100vw
+}
 iframe {border-style:none;}
