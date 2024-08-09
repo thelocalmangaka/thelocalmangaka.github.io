@@ -2,6 +2,11 @@ p {
     text-align: center;
     width: 1000px;
 }
+table {
+    text-align: left;
+    margin: auto;
+}
+td { white-space:pre }
 body {
     width: 100vw
 }
