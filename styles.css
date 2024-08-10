@@ -2,15 +2,6 @@ p {
     text-align: center;
     width: 1000px;
 }
-table {
-    text-align: left;
-    margin: auto;
-    background-size: 70%;
-    background-repeat: no-repeat;
-    background-position: left;
-    background-color: rgba(255,255,255,0.8);
-    background-blend-mode: lighten;
-}
 td { white-space:pre }
 body {
     width: 100vw
