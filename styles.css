@@ -1,6 +1,7 @@
 p {
     text-align: center;
     width: 1000px;
+    font-family: 'Arial';
 }
 td { white-space:pre }
 body {
