@@ -1,9 +1,9 @@
 /* Additional styles */
 .slider {
-    width: 500px;
+    width: min(500px, 45vw);;
     height: 20em;
     align-content: center;
-    margin:0 250px;
+    margin:0 min(250px, 22.5vw);
     background: #444;
     position: relative;
     overflow: hidden;
