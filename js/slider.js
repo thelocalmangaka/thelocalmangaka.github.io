@@ -14,7 +14,9 @@ function setUpSlider($container) {
     }
 
     function previousSlide() {
-        slides[pos].video.stopVideo()
+        if (slides[pos].video !== undefined) {
+            slides[pos].video.stopVideo()
+        }
         slides.eq(pos).animate({ left: '100%' }, 500);
         pos = (pos == 0 ? numOfSlides - 1 : --pos);
         slides.eq(pos).css({ left: '-100%' }).animate({ left: 0 }, 500);

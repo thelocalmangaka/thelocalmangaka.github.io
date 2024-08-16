@@ -2,9 +2,20 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="stylesheet" href="../../styles/slider.css">
     <meta charset="UTF-8">
     <title>The Local Mangaka | Collection</title>
     <link rel="icon" type="image/x-icon" href="/media/drawings/the_yellow_cat.png">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="../../js/slider.js"></script>
+    <script>
+        $(document).ready(function () {
+            setUpSlider($('#autographs'));
+            setUpSlider($('#cels'));
+            setUpSlider($('#gundams'));
+            setUpSlider($('#misc'));
+        })
+    </script>
 </head>
 <header>
     <p>
@@ -17,6 +28,162 @@
     </p>
 </header>
 <body>
-    <p>TBA</p>
+    <p><img src="../../media/general/pizza.png" alt="Pizza" width="300"></p>
+    <p>Here is a list of the coolest things I own!</p>
+    <p><b>Autographs:</b></p>
+    <p>
+        1) Bleach Chapter #01 Gold-Foil Panel (Klub-Outside Exclusive), signed by Masakazu Morita (VA of Ichigo) (AX 2023)<br/>
+        2) 20th Anniversary Naruto Skateboard (AX 2022), signed by all members of Flow (Anaheim Concert, 2024)<br/>
+        3) Bungou Stray Dogs: Volume 01, signed by Kafka Asagiri (AX 2023)<br/>
+        4) One Piece: Volume 103, Signed by Kohei Tanaka (LA Concert, 2023)<br/>
+        5) Photo of Hiroshi Kitadani, Signed by Hiroshi Kitadani (LA Concert, 2023)
+    </p>
+    <div class="slider" id="autographs">
+        <div class="slide">
+            <img src="../../media/collection/autographs/ichigo_bleach.jpeg" alt="Masakazu Morita Autograph" width="250">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/autographs/flow_skateboard.jpeg" alt="Flow Autograph" width="250">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/autographs/bungou_stray_dogs.jpeg" alt="Kafka Asagiri Autograph" width="250">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/autographs/one_piece_composer.jpeg" alt="Kohei Tanaka Autograph" width="250">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/autographs/hiroshi_kitadani.jpeg" alt="Hiroshi Kitadani Autograph" width="250">
+        </div>
+        <div class="slide-arrow left"></div>
+        <div class="slide-arrow right"></div>
+    </div>
+    <p><b>Animation Cels / Art:</b></p>
+    <p>
+        1) SpongeBob SquarePants Cel: Naughty Nautical Neighbors + Background<br/>
+        2) SpongeBob SquarePants Cel: Hooky + Krusty Krab Panoramic Background<br/>
+        3) Princess Mononoke Cel: Lady Eboshi vs. San<br/>
+        4) Princess Mononoke Cel: Kodama<br/>
+        5) Neon Genesis Evangelion Cel: Unit-01 (Episode #2)<br/>
+        6) Castle in the Sky Cel: Sheeta<br/>
+        7) One Piece Ukiyo-e Woodcut Painting<br/>
+        8) Bleach Genga/Douga Sketches: Ichigo Hollow Transformation
+    </p>
+    <div class="slider" id="cels">
+        <div class="slide">
+            <img src="../../media/collection/cels/spongebob_nnn.jpeg" alt="SpongeBob Naughty Nautical Neighbors Cel" width="500">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/cels/spongebob_krusty_krab.jpeg" alt="SpongeBob Krusty Krab Cel" width="500">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/cels/mononoke_lady_eboshi_vs_san.jpeg" alt="Princess Mononoke Lady Eboshi vs San Cel" width="500">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/cels/mononoke_kodama.jpeg" alt="Princess Mononoke Kodama Cel" width="500">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/cels/eva_unit_01.jpeg" alt="Evangelion Cel" width="500">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/cels/one_piece_ukiyoe.jpeg" alt="One Piece Ukiyoe" width="500">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/cels/bleach_01.jpeg" alt="Bleach Sketch #01" width="500">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/cels/bleach_02.jpeg" alt="Bleach Sketch #02" width="500">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/cels/bleach_03.jpeg" alt="Bleach Sketch #03" width="500">
+        </div>
+        <div class="slide-arrow left"></div>
+        <div class="slide-arrow right"></div>
+    </div>
+    <p><b>Gundams / Mecha Toys:</b></p>
+    <p>
+        1) Metal Structure: MSN-04 Sazabi<br/>
+        2) Metal Structure: RX-93 ν Gundam (coming soon)<br/>
+        3) Perfect Grade: Unicorn Gundam<br/>
+        4) Perfect Grade Unleashed: RX-78-2 Gundam<br/>
+        5) Metal Build: Strike Gundam + Aile Striker (10th Anniversary)<br/>
+        6) Metal Build: Strike Freedom Gundam (Soul Blue Version)<br/>
+        7) Metal Build: Freedom Gundam Concept 2.0<br/>
+        8) Gundam Fix Figuration Metal Composite: Wing Gundam EW (Early Color Ver.)<br/>
+        9) Metal Build: Eva Unit-01<br/>
+        10) Metal Build: Code Geass Guren<br/>
+        11) Chogokin: RX-93ff ν Gundam
+    </p>
+    <div class="slider" id="gundams">
+        <div class="slide">
+            <img src="../../media/collection/gundam/metal_structure_sazabi.jpeg" alt="Metal Structure Sazabi" width="500">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/gundam/perfect_grade_unicorn_gundam.jpeg" alt="PG Unicorn Gundam" width="500">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/gundam/perfect_grade_unleashed_rx_782_gundam.jpeg" alt="PGU RX-782 Gundam" width="500">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/gundam/metal_build_strike_gundam.jpeg" alt="Metal Build Strike Gundam" width="500">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/gundam/metal_build_strike_freedom_gundam.jpeg" alt="Metal Build Strike Freedom Gundam" width="500">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/gundam/metal_build_freedom_gundam.jpeg" alt="Metal Build Freedom Gundam" width="500">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/gundam/metal_composite_wing_gundam_early_color_ver.jpeg" alt="Metal Composite Wing Gundam, Early Color" width="500">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/gundam/metal_build_eva_unit_01.jpeg" alt="Metal Build Eva Unit 01" width="500">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/gundam/metal_build_guren.jpeg" alt="Metal Build Code Geass Guren" width="500">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/gundam/chogokin_rx_93ff_nu_gundam.jpeg" alt="Chogokin Nu Gundam" width="500">
+        </div>
+        <div class="slide-arrow left"></div>
+        <div class="slide-arrow right"></div>
+    </div>
+    <p><b>Miscellaneous:</b></p>
+    <p>
+        1) 1992 Gottlieb Super Mario Bros. Pinball Machine<br/>
+        2) Chirashi Poster Collection<br/>
+        3) Pokémon 25th Anniversary Lionel Train Set<br/>
+        4) My Neighbor Totoro Clock<br/>
+        5) Nausicaä of the Valley of the Wind: Blue Fox Squirrel Plush (Ghibli Exhibition Limited Edition)<br/>
+        6) Burning Shadows: Charizard GX (Rainbow Holo-foil, PSA Graded 8)
+    </p>
+    <div class="slider" id="misc">
+        <div class="slide">
+            <img src="../../media/collection/misc/pinball_01.jpeg" alt="Mario Pinball 01" width="250">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/misc/pinball_02.jpeg" alt="Mario Pinball 02" width="250">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/misc/pinball_03.jpeg" alt="Mario Pinball 03" width="250">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/misc/chirashi_poster.jpeg" alt="Chirashi Posters" width="250">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/misc/pokemon_train.jpeg" alt="Pokémon Train" width="250">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/misc/totoro_clock.jpeg" alt="Totoro Clock" width="250">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/misc/blue_fox_squirrel.jpeg" alt="Blue Fox Squirrel" width="250">
+        </div>
+        <div class="slide">
+            <img src="../../media/collection/misc/rainbow_charizard.jpeg" alt="Rainbow Charizard" width="250">
+        </div>
+        <div class="slide-arrow left"></div>
+        <div class="slide-arrow right"></div>
+    </div>
+    <p><img src="../../media/general/cake.png" alt="Cake" width="300"></p>
 </body>
 </html>
