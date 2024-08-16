@@ -1,10 +1,10 @@
 p {
     text-align: center;
-    width: 1000px;
+    width: min(1000px, 90vw);
     font-family: 'Arial';
 }
 td { white-space:pre }
 body {
-    width: 95vw;
+    width: min(1000px, 90vw);
 }
 iframe {border-style:none;}
