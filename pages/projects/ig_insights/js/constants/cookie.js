@@ -1,0 +1,1 @@
+export const FB_TOKEN_COOKIE_KEY = 'fbToken';

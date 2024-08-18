@@ -1,5 +1,6 @@
 import {APP_ID, APP_LOGIN_URL} from "../constants/facebook.js";
-import {deleteCookie, hideLogin} from "../helper/login.js";
+import {deleteCookies, hideLogin} from "../helper/login.js";
+import {calculateInsights} from "./insight.js";
 
 function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
     console.log('statusChangeCallback');
@@ -9,7 +10,8 @@ function statusChangeCallback(response) {  // Called with the results from FB.ge
         testAPI();
     } else {
         hideLogin(false);
-        deleteCookie();
+        deleteCookies();
+        calculateInsights();
     }
 }
 
