@@ -1,4 +1,5 @@
 import {APP_ID} from "./constants/facebook.js";
+import {hideLogin} from "./hide";
 
 export function deleteCookie() {
     console.log("Deleting cookie...");
@@ -6,11 +7,10 @@ export function deleteCookie() {
     console.log("Cookie deleted.");
 }
 
-export function logoutOfFacebook() {
-    document.getElementById('login').style.display = 'block';
-    document.getElementById('logout').style.display = 'none';
-    document.getElementById('message').innerText = '';
+function logoutOfFacebook() {
+    hideLogin(false);
     console.log("Logging out");
+    FB.logout();
     console.log("Logged out");
     deleteCookie();
 }

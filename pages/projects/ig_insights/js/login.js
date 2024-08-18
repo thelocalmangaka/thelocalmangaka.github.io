@@ -1,16 +1,15 @@
 import {APP_ID, APP_LOGIN_URL} from "./constants/facebook.js";
 import {deleteCookie} from "./logout.js";
+import {hideLogin} from "./hide.js";
 
 function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
     console.log('statusChangeCallback');
     console.log(response);                   // The current login status of the person.
     if (response.status === 'connected') {   // Logged into your webpage and Facebook.
-        document.getElementById('login').style.display = 'none';
-        document.getElementById('logout').style.display = 'block';
+        hideLogin(true);
         testAPI();
     } else {
-        document.getElementById('login').style.display = 'block';
-        document.getElementById('logout').style.display = 'none';
+        hideLogin(false);
         deleteCookie();
     }
 }
@@ -43,7 +42,7 @@ function testAPI() {                      // Testing Graph API after login.  See
     });
 }
 
-export function loginToFacebook() {
+function loginToFacebook() {
     window.location.replace(APP_LOGIN_URL);
 }
 
