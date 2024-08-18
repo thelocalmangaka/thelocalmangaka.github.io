@@ -1,5 +1,5 @@
-import {APP_ID, APP_LOGIN_URL} from "./constants/facebook";
-import {deleteCookie} from "./logout";
+import {APP_ID, APP_LOGIN_URL} from "./constants/facebook.js";
+import {deleteCookie} from "./logout.js";
 
 function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
     console.log('statusChangeCallback');
@@ -43,6 +43,6 @@ function testAPI() {                      // Testing Graph API after login.  See
     });
 }
 
-function login() {
+export function login() {
     window.location.replace(APP_LOGIN_URL);
 }

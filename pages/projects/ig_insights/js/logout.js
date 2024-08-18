@@ -1,4 +1,4 @@
-import {APP_ID} from "./constants/facebook";
+import {APP_ID} from "./constants/facebook.js";
 
 export function deleteCookie() {
     console.log("Deleting cookie...");
@@ -6,7 +6,7 @@ export function deleteCookie() {
     console.log("Cookie deleted.");
 }
 
-function logout() {
+export function logout() {
     document.getElementById('login').style.display = 'block';
     document.getElementById('logout').style.display = 'none';
     document.getElementById('message').innerText = '';
