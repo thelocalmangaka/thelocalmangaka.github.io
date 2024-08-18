@@ -4,12 +4,12 @@ import {deleteCookie, hideLogin} from "../helper/login.js";
 function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
     console.log('statusChangeCallback');
     console.log(response);                   // The current login status of the person.
-    deleteCookie();
     if (response.status === 'connected') {   // Logged into your webpage and Facebook.
         hideLogin(true);
         testAPI();
     } else {
         hideLogin(false);
+        deleteCookie();
     }
 }
 
