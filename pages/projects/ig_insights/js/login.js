@@ -43,6 +43,8 @@ function testAPI() {                      // Testing Graph API after login.  See
     });
 }
 
-export function login() {
+export function loginToFacebook() {
     window.location.replace(APP_LOGIN_URL);
 }
+
+window.loginToFacebook = loginToFacebook;

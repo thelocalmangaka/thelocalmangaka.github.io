@@ -6,12 +6,13 @@ export function deleteCookie() {
     console.log("Cookie deleted.");
 }
 
-export function logout() {
+export function logoutOfFacebook() {
     document.getElementById('login').style.display = 'block';
     document.getElementById('logout').style.display = 'none';
     document.getElementById('message').innerText = '';
     console.log("Logging out");
-    FB.logout();
     console.log("Logged out");
     deleteCookie();
 }
+
+window.logoutOfFacebook = logoutOfFacebook;
