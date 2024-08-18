@@ -1,1 +1,1 @@
-export const FB_TOKEN_COOKIE_KEY = 'fbToken';
+export const ACCESS_TOKEN_COOKIE_NAME = "fbAccessToken";

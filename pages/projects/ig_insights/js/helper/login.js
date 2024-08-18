@@ -1,15 +1,29 @@
 import {APP_ID} from "../constants/facebook.js";
-import {FB_TOKEN_COOKIE_KEY} from "../constants/cookie";
+import {ACCESS_TOKEN_COOKIE_NAME} from "../constants/cookie.js";
 
 export function hideLogin(isLoggedIn) {
     document.getElementById('login').style.display = isLoggedIn ? 'none' : 'block';
-    document.getElementById('logout').style.display = isLoggedIn ? 'block' : 'none';
-    document.getElementById('message').style.display = isLoggedIn ? 'block' : 'none';
+    document.getElementById('loggedIn').style.display = isLoggedIn ? 'block' : 'none';
+}
+
+export function saveCookie() {
+    const hash = window.location.hash.substring(1);
+    const urlParams = hash.split('&').reduce(function (res, item) {
+        let parts = item.split('=');
+        res[parts[0]] = parts[1];
+        return res;
+    }, {});
+    const accessToken = urlParams['access_token'];
+    if (accessToken !== null && accessToken !== undefined && accessToken !== '') {
+        console.log("Saving cookie...");
+        $.cookie(ACCESS_TOKEN_COOKIE_NAME, accessToken);
+        console.log("Cookie saved.");
+    }
 }
 
 export function deleteCookies() {
     console.log("Deleting cookies...");
     $.removeCookie('fblo_' + APP_ID, { path: '/' });
-    $.removeCookie(FB_TOKEN_COOKIE_KEY, { path: '/' });
-    console.log("Cookie deleted.");
+    $.removeCookie(ACCESS_TOKEN_COOKIE_NAME, { path: '/' });
+    console.log("Cookies deleted.");
 }

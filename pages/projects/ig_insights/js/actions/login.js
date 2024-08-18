@@ -1,17 +1,16 @@
 import {APP_ID, APP_LOGIN_URL} from "../constants/facebook.js";
-import {deleteCookies, hideLogin} from "../helper/login.js";
-import {calculateInsights} from "./insight.js";
+import {deleteCookies, hideLogin, saveCookie} from "../helper/login.js";
 
 function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
     console.log('statusChangeCallback');
     console.log(response);                   // The current login status of the person.
     if (response.status === 'connected') {   // Logged into your webpage and Facebook.
         hideLogin(true);
-        testAPI();
+        getName();
+        saveCookie();
     } else {
         hideLogin(false);
         deleteCookies();
-        calculateInsights();
     }
 }
 
@@ -34,11 +33,11 @@ window.fbAsyncInit = function() {
     });
 };
 
-function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+function getName() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
         console.log('Successful login for: ' + response.name);
-        document.getElementById('message').innerText =
+        document.getElementById('welcome').innerText =
             'Thanks for logging in, ' + response.name + '!';
     });
 }
