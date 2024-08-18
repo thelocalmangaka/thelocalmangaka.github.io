@@ -28,10 +28,9 @@ window.fbAsyncInit = function() {
 function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
     console.log('Welcome!  Fetching your information.... ');
     document.getElementById('login').style.display = 'none';
-    document.getElementById('success').style.display = 'block';
     FB.api('/me', function(response) {
         console.log('Successful login for: ' + response.name);
-        document.getElementById('message').innerHTML =
+        document.getElementById('message').innerText =
             'Thanks for logging in, ' + response.name + '!';
     });
 }
