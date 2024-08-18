@@ -1,6 +1,5 @@
-import {APP_ID, APP_LOGIN_URL} from "./constants/facebook.js";
-import {deleteCookie} from "./logout.js";
-import {hideLogin} from "./hide.js";
+import {APP_ID, APP_LOGIN_URL} from "../constants/facebook.js";
+import {deleteCookie, hideLogin} from "../helper/login.js";
 
 function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
     console.log('statusChangeCallback');
