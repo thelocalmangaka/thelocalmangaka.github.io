@@ -3,44 +3,29 @@
 <head>
   <link rel="stylesheet" href="../../../styles/styles.css">
   <meta charset="UTF-8">
-  <title>The Local Mangaka | IGInsights</title>
+  <title>IGInsights</title>
   <link rel="icon" type="image/x-icon" href="/media/general/the_yellow_cat_icon.png">
   <!--loads the FaceBook sdk into page-->
-  <script>
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId      : '{your-app-id}',
-        cookie     : true,
-        xfbml      : true,
-        version    : '{api-version}'
-      });
-
-      FB.AppEvents.logPageView();
-
-    };
-
-    (function(d, s, id){
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {return;}
-      js = d.createElement(s); js.id = id;
-      js.src = "https://connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-  </script>
-
+  <script src="js/login.js"></script>
 </head>
 <header>
-  <p>
-    <a href="../../../index.html">home</a>
-    <a href="../index.html">projects</a>
-    <a href="../../drawings/index.html">drawings</a>
-    <a href="../../collection/index.html">collection</a>
-    <a href="../../travel/index.html">travel</a>
-    <a href="../../about/index.html">about</a>
-  </p>
+  <p><b>IGInsights</b></p>
 </header>
 <body>
-<!--<a href='https://www.facebook.com/dialog/oauth?scope=instagram_basic,instagram_content_publish,instagram_manage_comments,instagram_manage_insights,pages_show_list,pages_read_engagement&client_id=501129039057747&display=page&extras={"setup":{"channel":"IG_API_ONBOARDING"}}&redirect_uri=https://thelocalmangaka.github.io/&response_type=token'>Login to Facebook</a>-->
-<p>TBA</p>
+<!--<p>-->
+<!--  <a href='https://www.facebook.com/dialog/oauth?scope=instagram_basic,instagram_manage_insights,pages_read_engagement,pages_show_list&client_id=501129039057747&display=page&extras={"setup":{"channel":"IG_API_ONBOARDING"}}&redirect_uri=https://thelocalmangaka.github.io/&response_type=token'>Login to Facebook</a>-->
+<!--</p>-->
+
+<!--<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">-->
+<!--</fb:login-button>-->
+
+<!-- Load the JS SDK asynchronously -->
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 </body>
+<footer>
+  <p>
+    <a href="./privacy_policy.html">privacy policy</a>
+    <a href="./terms_and_conditions.html">terms and conditions</a>
+  </p>
+</footer>
 </html>
