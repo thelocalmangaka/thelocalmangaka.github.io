@@ -4,6 +4,7 @@ import {ACCESS_TOKEN_COOKIE_NAME} from "../constants/cookie.js";
 export function changeView(isLoggedIn) {
     document.getElementById('login').style.display = isLoggedIn ? 'none' : 'block';
     document.getElementById('loggedIn').style.display = isLoggedIn ? 'block' : 'none';
+    document.getElementById('loader').style.display = 'none';
 }
 
 export function saveCookie() {
