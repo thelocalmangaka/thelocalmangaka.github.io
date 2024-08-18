@@ -1,4 +1,4 @@
-import {APP_ID} from "../constants/facebook";
+import {APP_ID} from "../constants/facebook.js";
 
 export function hideLogin(isLoggedIn) {
     document.getElementById('login').style.display = isLoggedIn ? 'none' : 'block';

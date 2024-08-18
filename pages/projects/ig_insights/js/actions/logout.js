@@ -1,4 +1,4 @@
-import {deleteCookie, hideLogin} from "../helper/login";
+import {deleteCookie, hideLogin} from "../helper/login.js";
 
 function logoutOfFacebook() {
     hideLogin(false);
