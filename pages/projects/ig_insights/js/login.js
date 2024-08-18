@@ -1,3 +1,6 @@
+import {APP_ID, APP_LOGIN_URL} from "./constants/facebook";
+import {deleteCookie} from "./logout";
+
 function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
     console.log('statusChangeCallback');
     console.log(response);                   // The current login status of the person.
@@ -8,7 +11,7 @@ function statusChangeCallback(response) {  // Called with the results from FB.ge
     } else {
         document.getElementById('login').style.display = 'block';
         document.getElementById('logout').style.display = 'none';
-        document.cookie = 'fblo_501129039057747=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        deleteCookie();
     }
 }
 
@@ -20,7 +23,7 @@ function checkLoginState() {               // Called when a person is finished w
 
 window.fbAsyncInit = function() {
     FB.init({
-        appId      : '501129039057747',
+        appId      : APP_ID,
         cookie     : true,                     // Enable cookies to allow the server to access the session.
         xfbml      : true,                     // Parse social plugins on this webpage.
         version    : 'v20.0'           // Use this Graph API version for this call.
@@ -41,5 +44,5 @@ function testAPI() {                      // Testing Graph API after login.  See
 }
 
 function login() {
-    window.location.replace('https://www.facebook.com/dialog/oauth?scope=instagram_basic,instagram_manage_insights,pages_read_engagement,pages_show_list&client_id=501129039057747&display=page&extras={"setup":{"channel":"IG_API_ONBOARDING"}}&redirect_uri=https://thelocalmangaka.github.io/pages/projects/ig_insights/index.html&response_type=token');
+    window.location.replace(APP_LOGIN_URL);
 }

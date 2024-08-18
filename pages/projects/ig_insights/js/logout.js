@@ -1,7 +1,17 @@
+import {APP_ID} from "./constants/facebook";
+
+export function deleteCookie() {
+    console.log("Deleting cookie...");
+    document.cookie = 'fblo_' + APP_ID + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    console.log("Cookie deleted.");
+}
+
 function logout() {
     document.getElementById('login').style.display = 'block';
     document.getElementById('logout').style.display = 'none';
     document.getElementById('message').innerText = '';
+    console.log("Logging out");
     FB.logout();
-    document.cookie = 'fblo_501129039057747=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    console.log("Logged out");
+    deleteCookie();
 }
