@@ -8,6 +8,7 @@ function statusChangeCallback(response) {  // Called with the results from FB.ge
     } else {
         document.getElementById('login').style.display = 'block';
         document.getElementById('logout').style.display = 'none';
+        document.cookie = 'fblo_501129039057747=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
 }
 
