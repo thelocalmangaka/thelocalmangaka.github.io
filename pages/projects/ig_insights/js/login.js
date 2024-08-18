@@ -40,5 +40,5 @@ function testAPI() {                      // Testing Graph API after login.  See
 }
 
 function login() {
-    window.open('https://www.facebook.com/dialog/oauth?scope=instagram_basic,instagram_manage_insights,pages_read_engagement,pages_show_list&client_id=501129039057747&display=page&extras={"setup":{"channel":"IG_API_ONBOARDING"}}&redirect_uri=https://thelocalmangaka.github.io/pages/projects/ig_insights/index.html&response_type=token');
+    window.location.replace('https://www.facebook.com/dialog/oauth?scope=instagram_basic,instagram_manage_insights,pages_read_engagement,pages_show_list&client_id=501129039057747&display=page&extras={"setup":{"channel":"IG_API_ONBOARDING"}}&redirect_uri=https://thelocalmangaka.github.io/pages/projects/ig_insights/index.html&response_type=token');
 }
