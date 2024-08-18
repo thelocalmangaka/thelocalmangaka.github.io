@@ -3,6 +3,9 @@ function statusChangeCallback(response) {  // Called with the results from FB.ge
     console.log(response);                   // The current login status of the person.
     if (response.status === 'connected') {   // Logged into your webpage and Facebook.
         testAPI();
+    } else {
+        document.getElementById('login').style.display = 'block';
+        document.getElementById('logout').style.display = 'none';
     }
 }
 
@@ -28,6 +31,7 @@ window.fbAsyncInit = function() {
 function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
     console.log('Welcome!  Fetching your information.... ');
     document.getElementById('login').style.display = 'none';
+    document.getElementById('logout').style.display = 'block';
     FB.api('/me', function(response) {
         console.log('Successful login for: ' + response.name);
         document.getElementById('message').innerText =
