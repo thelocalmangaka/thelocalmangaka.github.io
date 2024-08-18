@@ -7,9 +7,6 @@ li {
     width: min(1000px, 100vw);
     font-family: 'Arial';
 }
-fb:login-button {
-    position: center;
-}
 td { white-space:pre }
 body {
     width: min(1000px, 100vw);
