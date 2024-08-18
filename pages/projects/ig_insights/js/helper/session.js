@@ -1,7 +1,7 @@
 import {APP_ID} from "../constants/facebook.js";
 import {ACCESS_TOKEN_COOKIE_NAME} from "../constants/cookie.js";
 
-export function hideLogin(isLoggedIn) {
+export function changeView(isLoggedIn) {
     document.getElementById('login').style.display = isLoggedIn ? 'none' : 'block';
     document.getElementById('loggedIn').style.display = isLoggedIn ? 'block' : 'none';
 }
@@ -23,6 +23,7 @@ export function saveCookie() {
 
 export function deleteCookies() {
     console.log("Deleting cookies...");
+    console.log(document.cookie);
     $.removeCookie('fblo_' + APP_ID, { path: '/' });
     $.removeCookie(ACCESS_TOKEN_COOKIE_NAME, { path: '/' });
     console.log("Cookies deleted.");

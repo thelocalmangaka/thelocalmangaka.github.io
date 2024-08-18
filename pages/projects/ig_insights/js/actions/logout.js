@@ -1,7 +1,7 @@
-import {deleteCookies, hideLogin} from "../helper/login.js";
+import {deleteCookies, changeView} from "../helper/session.js";
 
 function logoutOfFacebook() {
-    hideLogin(false);
+    changeView(false);
     console.log("Logging out...");
     FB.logout();
     console.log("Logged out");

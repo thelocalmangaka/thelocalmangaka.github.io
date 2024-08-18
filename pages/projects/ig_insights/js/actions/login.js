@@ -1,15 +1,15 @@
 import {APP_ID, APP_LOGIN_URL} from "../constants/facebook.js";
-import {deleteCookies, hideLogin, saveCookie} from "../helper/login.js";
+import {deleteCookies, changeView, saveCookie} from "../helper/session.js";
 
 function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
     console.log('statusChangeCallback');
     console.log(response);                   // The current login status of the person.
     if (response.status === 'connected') {   // Logged into your webpage and Facebook.
-        hideLogin(true);
+        changeView(true);
         getName();
         saveCookie();
     } else {
-        hideLogin(false);
+        changeView(false);
         deleteCookies();
     }
 }

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <link rel="stylesheet" href="../../../styles/styles.css">
+  <link rel="stylesheet" href="../../../styles/loader.css">
   <meta charset="UTF-8">
   <title>IGInsights</title>
   <link rel="icon" type="image/x-icon" href="/media/general/the_yellow_cat_icon.png">
@@ -30,7 +31,9 @@
       <button onclick="logoutOfFacebook()">Logout</button>
     </p>
   </div>
-  <!-- Load the JS SDK asynchronously -->
+  <div class="loader"></div>
+  <div id="table"></div>
+  <p id="download"></p>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 </body>
 <footer>
