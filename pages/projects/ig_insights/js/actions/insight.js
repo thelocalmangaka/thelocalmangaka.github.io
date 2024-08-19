@@ -161,12 +161,14 @@ async function getPageIds() {
 
 export async function insight() {
     document.getElementById('loader').style.display = 'block';
+    document.getElementById('loader_message').style.display = 'block';
     const pageIds = await getPageIds();
     const businessAccountIds = await getBusinessAccountIds(pageIds);
     const mediaMap = await getListOfMedia(businessAccountIds);
     const insights = await getInsights(mediaMap);
     const table = createTable(insights);
     document.getElementById('loader').style.display = 'none';
+    document.getElementById('loader_message').style.display = 'none';
     document.getElementById('calculated').style.display = 'block';
     createTableHtml(table);
     createDownloadButton(table);
