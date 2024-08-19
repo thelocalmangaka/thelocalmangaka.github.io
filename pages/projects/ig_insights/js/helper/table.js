@@ -1,5 +1,5 @@
 import {INSIGHT_KEYS, TABLE_COLUMNS, TABLE_MAP} from "../constants/facebook.js";
-import {getError, hasError} from "./log.js";
+import {getError, hasError, log} from "./log.js";
 
 function populateInsight(insight, data) {
     for (const metric of data) {
@@ -60,7 +60,7 @@ function createRow(insight, totalInsight) {
 }
 
 export function createTable(insights) {
-    console.log("Creating table...");
+    log("Creating table...");
     let table = [];
     // Create header
     let header = TABLE_COLUMNS.join(',');
@@ -83,6 +83,8 @@ export function createTable(insights) {
             totalInsightString += `,${totalInsight[key]}`;
         }
     }
+    // Empty cells at end.
+    totalInsightString += ',,,,';
     table.push(totalInsightString);
     return table;
 }
@@ -123,11 +125,19 @@ export function createTableHtml(table) {
     }
     // Insert into html
     tableDiv.appendChild(tableHtml);
+    log("Table created.");
 }
 
 const CSV_KEY = "csvContent";
 export function click() {
-    window.open(encodeURI(window.sessionStorage.getItem(CSV_KEY)));
+    log("Downloading csv file...");
+    const csvContent = encodeURI(window.sessionStorage.getItem(CSV_KEY));
+    let link = document.createElement("a");
+    link.setAttribute("href", csvContent);
+    link.setAttribute("download", "ig_insights.csv");
+    document.body.appendChild(link); // Required for FF
+    link.click(); // This will download the data file
+    log("File downloaded.");
 }
 
 export function createDownloadButton(table) {
@@ -142,5 +152,4 @@ export function createDownloadButton(table) {
         downloadDiv.removeChild(downloadDiv.lastChild);
     }
     downloadDiv.appendChild(downloadButton);
-
 }
