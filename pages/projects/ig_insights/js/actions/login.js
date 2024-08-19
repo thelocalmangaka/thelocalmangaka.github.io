@@ -2,13 +2,14 @@ import {APP_ID, APP_LOGIN_URL} from "../constants/facebook.js";
 import {deleteCookies, changeView, saveCookie} from "../helper/session.js";
 
 function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
-    console.log('statusChangeCallback');
+    console.log('Checking login status...');
     console.log(response);                   // The current login status of the person.
     if (response.status === 'connected') {   // Logged into your webpage and Facebook.
         changeView(true);
         getName();
-        saveCookie();
+        saveCookie(response.authResponse);
     } else {
+        console.log("Not logged in. If problem persists, usually can be resolved by clearing third party cookies then trying again.");
         changeView(false);
         deleteCookies();
     }

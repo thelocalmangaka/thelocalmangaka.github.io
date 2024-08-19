@@ -18,14 +18,17 @@
 </header>
 <body>
   <p>
-    This tool can calculate the TOTAL sum of likes, plays, watch-time, etc. on ALL your Instagram posts over their ENTIRE lifetimes!<br/>
-    This tool uses <a href="https://developers.facebook.com/docs/instagram-platform/instagram-graph-api/reference/ig-media/insights">Facebook APIs</a> and all you need to do is:
+    This tool can calculate the total sum of likes, plays, watch-time, etc. on all your Instagram posts over their entire lifetimes!<br/>
+    This tool uses <a href="https://developers.facebook.com/docs/instagram-platform/instagram-api-with-facebook-login">Facebook APIs</a> and all you need to do is:
   </p>
   <ul>
     <li>1) Log into Facebook</li>
     <li>2) Create/associate a Facebook page with your Instagram profile (necessary to use Insight APIs)</li>
     <li>3) Log into Instagram</li>
-    <li>4) Follow instructions to grant this app permissions to view your insights.</li>
+    <li>4) Follow instructions to grant this tool permissions to view your insights.</li>
+    <ul>
+      <li>I specifically request for the following permissions: <b>[instagram_basic, instagram_manage_insights, pages_read_engagement, pages_show_list]</b>, as they are required by the Insights API <a href="https://developers.facebook.com/docs/instagram-platform/instagram-graph-api/reference/ig-media/insights">here</a>.</li>
+    </ul>
     <li>5) Wait for page to finish calling Facebook's API's for all your posts, then display the results in a table in this window!</li>
   </ul>
   <p><b><i>Results can also be downloaded as a .csv file!!!</i></b></p>
@@ -39,23 +42,38 @@
     </p>
   </div>
   <div id="loggedIn" style="display: none">
+    <hr>
     <p id="welcome"></p>
     <p>
       <button onclick="insight()">Calculate my Insights!</button>
     </p>
     <p>
-      <button onclick="logoutOfFacebook()">Logout</button>
+      <button onclick="logoutOfFacebook()">Logout of Facebook</button>
     </p>
   </div>
+  <p><i>Info regarding insights calculated can be found <a href="./info.html">here</a>.</i></p>
   <div id="loader" class="loader"></div>
-  <div id="table"></div>
+  <div id="table">
+  </div>
   <p id="download"></p>
+  <div id="calculated" style="display: none">
+    <p>
+      Woohoo! Your insights have been calculated!<br/>
+      If you liked this tool, please follow me <b>(@thelocalmangaka)</b> on <a href="https://www.instagram.com/thelocalmangaka/">Instagram</a> or check me out on <a href="https://www.youtube.com/c/TheLocalMangaka">YouTube</a>!
+    </p>
+    <p><i>
+      Note: Columns in blue refer to metrics available to all media,<br/>
+      while columns in yellow are exclusive to video category media,<br/>
+      and columns in orange are exclusive to non-video category media.
+    </i></p>
+  </div>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 </body>
 <footer>
   <p>
     <a href="./privacy_policy.html">privacy policy</a>
     <a href="./terms_and_conditions.html">terms and conditions</a>
+    <a href="https://github.com/thelocalmangaka/thelocalmangaka.github.io/tree/main/pages/projects/ig_insights">source code</a>
   </p>
 </footer>
 </html>

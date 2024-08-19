@@ -1,6 +1,7 @@
 import {GRAPH_API} from "../constants/facebook.js";
 import {ACCESS_TOKEN_COOKIE_NAME} from "../constants/cookie.js";
 import {createDownloadButton, createInsight, createTable, createTableHtml} from "../helper/table.js";
+import {hasError, log, logError, logErrorString, logJson} from "../helper/log.js";
 
 async function fbGet(path) {
     let getPath = GRAPH_API + path;
@@ -24,25 +25,42 @@ async function getInsights(mediaMap) {
         let i = 1;
         for (const media of mediaList) {
             const id = media.id;
-            console.log(`Getting insights for mediaId: ${id}, ${i} of ${length}...`);
+            log(`Getting media info for mediaId: ${id}, ${i} of ${length}...`);
+            const mediaInfo = await fbGet(`${id}?fields=media_type,permalink,timestamp,username`);
+            logJson(mediaInfo);
+            if (hasError(mediaInfo)) {
+                logError(mediaInfo.error);
+            }
+
+            log(`Getting insights for mediaId: ${id}, ${i} of ${length}...`);
             i = i + 1;
             // metrics available to all media types
             const response = await fbGet(`${id}/insights?metric=likes,comments,saved,shares,total_interactions`);
-            console.log(response);
+            logJson(response);
+            if (hasError(response)) {
+                logError(response.error);
+            }
 
-            // NOTE: It currently isn't possible to get a media's type from Facebook's graph API.
-            // It is available from Instagram's Basic Display API, which is a different set of permissions requiring a separate Instagram login and app creation.
-            // So instead, I will just call for all metrics, and allow calls to fail.
-
-            // video metrics
-            console.log(`Getting video insights for mediaId: ${id}...`);
-            const videoResponse = await fbGet(`${id}/insights?metric=video_views,clips_replays_count,plays,ig_reels_aggregated_all_plays_count,ig_reels_video_view_total_time`);
-            console.log(videoResponse);
-            // post metrics
-            console.log(`Getting post insights for mediaId: ${id}...`);
-            const postResponse = await fbGet(`${id}/insights?metric=follows,impressions,profile_activity,profile_visits`);
-            console.log(postResponse);
-            insights.push(createInsight(id, response, videoResponse, postResponse));
+            let videoResponse = {};
+            let postResponse = {};
+            if (!hasError(response) && mediaInfo.media_type === 'VIDEO') {
+                // video metrics
+                log(`Getting video insights for mediaId: ${id}...`);
+                videoResponse = await fbGet(`${id}/insights?metric=video_views,clips_replays_count,plays,ig_reels_aggregated_all_plays_count,ig_reels_video_view_total_time`);
+                logJson(videoResponse);
+                if (hasError(videoResponse)) {
+                    logError(videoResponse.error);
+                }
+            } else if(!hasError(response)) {
+                // post metrics
+                log(`Getting post insights for mediaId: ${id}...`);
+                postResponse = await fbGet(`${id}/insights?metric=follows,impressions,profile_activity,profile_visits`);
+                logJson(postResponse);
+                if (hasError(postResponse)) {
+                    logError(postResponse.error);
+                }
+            }
+            insights.push(createInsight(mediaInfo, response, videoResponse, postResponse));
         }
     }
     return insights;
@@ -53,9 +71,17 @@ async function getListOfMedia(businessAccountIds) {
     mediaMap.businessAccountIds = businessAccountIds;
     // Get list of all media, mapped to each businessAccountId
     for (const businessAccountId of businessAccountIds) {
-        console.log(`Getting media for businessAccountId: ${businessAccountId}...`);
+        log(`Getting media for businessAccountId: ${businessAccountId}...`);
         const response = await fbGet(`/${businessAccountId}?fields=media`);
-        console.log(response);
+        logJson(response);
+        if (hasError(response)) {
+            logErrorString(`Media list not found for ${businessAccountId}.`);
+            logError(response.error);
+            continue;
+        } else if (response.media === null || response.media === undefined) {
+            logErrorString(`Media list not found for ${businessAccountId}.`);
+            continue;
+        }
 
         const media = response.media;
         mediaMap[businessAccountId] = [];
@@ -63,15 +89,33 @@ async function getListOfMedia(businessAccountIds) {
         console.log(`Media length: ${mediaMap[businessAccountId].length}`);
 
         // results are paginated, based on existence of "next" variable
-        let next = media.paging.next;
+        let next = media.paging !== null && media.paging !== undefined ? media.paging.next : null;
+        let retry = 0;
         while (next !== null && next !== undefined) {
-            console.log(`Getting more media for businessAccountId: ${businessAccountId}...`)
+            log(`Getting more media for businessAccountId: ${businessAccountId}...`)
             const nextResponse = await fetch(next)
                 .then(res => res.json());
-            console.log(nextResponse);
+            logJson(nextResponse);
+            if (hasError(nextResponse) || nextResponse.data === null || nextResponse.data === undefined) {
+                logErrorString("Problem in getting next page of media list.");
+                if (hasError(nextResponse)) {
+                    logError(nextResponse.error);
+                }
+                if (retry < 1) {
+                    log("Retrying...");
+                    retry += 1;
+                    continue;
+                } else {
+                    log("Retry failed. Aborting retry.")
+                    break;
+                }
+            } else {
+                retry = 0;
+            }
             mediaMap[businessAccountId].push(...nextResponse.data);
-            next = nextResponse.paging.next;
-            console.log(`Media length: ${mediaMap[businessAccountId].length}`);
+            next = nextResponse.paging !== null && nextResponse.paging !== undefined
+                ? nextResponse.paging.next : null;
+            log(`Media length: ${mediaMap[businessAccountId].length}`);
         }
     }
     return mediaMap;
@@ -80,9 +124,17 @@ async function getListOfMedia(businessAccountIds) {
 async function getBusinessAccountIds(pageIds) {
     let businessAccountIds = [];
     for (const pageId of pageIds) {
-        console.log(`Getting business account id for pageId: ${pageId}...`);
+        log(`Getting business account id for pageId: ${pageId}...`);
         const response = await fbGet(`/${pageId}?fields=instagram_business_account`);
-        console.log(response);
+        logJson(response);
+        if (hasError(response)) {
+            logErrorString(`No business account id found for ${pageId}.`);
+            logError(response.error);
+            continue;
+        } else if (response.instagram_business_account === null || response.instagram_business_account === undefined) {
+            logErrorString(`No business account id found for ${pageId}.`);
+            continue;
+        }
         businessAccountIds.push(response.instagram_business_account.id);
     }
     return businessAccountIds;
@@ -90,9 +142,17 @@ async function getBusinessAccountIds(pageIds) {
 
 async function getPageIds() {
     let pageIds = [];
-    console.log("Getting accounts...");
-    const response = await fbGet('/me/accounts');
-    console.log(response);
+    log("Getting accounts...");
+    const response = await fbGet('me/accounts');
+    logJson(response);
+    if (hasError(response)) {
+        logErrorString("No accounts or page IDs returned for user.");
+        logError(response.error);
+        return pageIds;
+    } else if (response.data === null || response.data === undefined) {
+        logErrorString("No accounts page IDs returned for user.");
+        return pageIds;
+    }
     for (const page of response.data) {
         pageIds.push(page.id);
     }
@@ -107,6 +167,7 @@ export async function insight() {
     const insights = await getInsights(mediaMap);
     const table = createTable(insights);
     document.getElementById('loader').style.display = 'none';
+    document.getElementById('calculated').style.display = 'block';
     createTableHtml(table);
     createDownloadButton(table);
 }

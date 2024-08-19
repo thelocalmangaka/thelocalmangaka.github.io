@@ -1,28 +1,41 @@
-import {INSIGHT_KEYS, TABLE_COLUMNS} from "../constants/facebook.js";
+import {INSIGHT_KEYS, TABLE_COLUMNS, TABLE_MAP} from "../constants/facebook.js";
+import {getError, hasError} from "./log.js";
 
-function populateInsight(row, data) {
+function populateInsight(insight, data) {
     for (const metric of data) {
-        row[metric.name] = metric.values[0].value;
+        insight[metric.name] = metric.values[0].value;
     }
 }
 
-export function createInsight(id, response, videoResponse, postResponse) {
-    let row = {};
-    row.id = id;
-    if (response.data !== null && response.data !== undefined) {
-        populateInsight(row, response.data);
+export function createInsight(mediaInfo, response, videoResponse, postResponse) {
+    let insight = {};
+    insight.errors = [];
+    if (hasError(mediaInfo)) {
+        insight.errors.push(getError(mediaInfo.error));
+    } else {
+        insight.id = mediaInfo.id;
+        insight.media_type = mediaInfo.media_type;
+        insight.permalink = mediaInfo.permalink;
+        insight.timestamp = mediaInfo.timestamp;
+        insight.username = mediaInfo.username;
     }
-    if (videoResponse.data !== null && videoResponse.data !== undefined) {
-        row.media_type = 'VIDEO';
-        populateInsight(row, videoResponse.data);
+    if (hasError(response)) {
+        // Remove commas from error message so as to not interfere with the CSV file
+        insight.errors.push(getError(response.error).replace(/,/g, '/'));
+    } else if (response.data !== null && response.data !== undefined) {
+        populateInsight(insight, response.data);
+    }
+    if (hasError(videoResponse)) {
+        insight.errors.push(getError(videoResponse.error).replace(/,/g, '/'));
+    } else if (videoResponse.data !== null && videoResponse.data !== undefined) {
+        populateInsight(insight, videoResponse.data);
+    }
+    if (hasError(postResponse)) {
+        insight.errors.push(getError(postResponse.error).replace(/,/g, '/'));
     } else if (postResponse.data !== null && postResponse.data !== undefined) {
-        row.media_type = 'POST';
-        populateInsight(row, postResponse.data);
+        populateInsight(insight, postResponse.data);
     }
-    if (row.media_type === null || row.media_type === undefined) {
-        row.media_type = 'DEPRECATED';
-    }
-    return row;
+    return insight;
 }
 
 function createRow(insight, totalInsight) {
@@ -42,6 +55,7 @@ function createRow(insight, totalInsight) {
             totalInsight[key] += insight[key];
         }
     }
+    row += `,${insight.username},${insight.timestamp},${insight.permalink},${insight.errors}`;
     return row;
 }
 
@@ -74,9 +88,11 @@ export function createTable(insights) {
 }
 
 export function createTableHtml(table) {
+    // Create table element
     const tableHtml = document.createElement('table');
     const thead = tableHtml.appendChild(document.createElement('thead'));
     const tbody = tableHtml.appendChild(document.createElement('tbody'));
+    // Read each array element into each row
     table.forEach((line, index) => {
         let parent;
         let cellTag;
@@ -90,24 +106,34 @@ export function createTableHtml(table) {
         const tr = parent.appendChild(document.createElement('tr'));
         line.split(',').forEach((cell) => {
             const cellElement = tr.appendChild(document.createElement(cellTag));
+            if (TABLE_MAP['VIDEO'].includes(cell)) {
+                cellElement.style.backgroundColor = "yellow";
+            } else if (TABLE_MAP['POST'].includes(cell)) {
+                cellElement.style.backgroundColor = "orange";
+            } else if (TABLE_MAP['ERROR'].includes(cell)) {
+                cellElement.style.backgroundColor = "red";
+            }
             cellElement.appendChild(document.createTextNode(cell.trim()));
         });
     });
+    // Remove existing table, if repeating calculation.
     const tableDiv = document.querySelector('#table');
     while(tableDiv.firstChild) {
         tableDiv.removeChild(tableDiv.lastChild);
     }
+    // Insert into html
     tableDiv.appendChild(tableHtml);
 }
 
-let csvContent = "";
+const CSV_KEY = "csvContent";
 export function click() {
-    window.open(encodeURI(csvContent))
+    window.open(encodeURI(window.sessionStorage.getItem(CSV_KEY)));
 }
 
 export function createDownloadButton(table) {
-    csvContent = "data:text/csv;charset=utf-8,";
+    let csvContent = "data:text/csv;charset=utf-8,";
     csvContent += table.join('\n');
+    window.sessionStorage.setItem(CSV_KEY, csvContent);
     const downloadButton = document.createElement('button');
     downloadButton.innerText = "Download Results";
     downloadButton.onclick = click;

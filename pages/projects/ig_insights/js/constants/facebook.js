@@ -1,6 +1,5 @@
 export const APP_ID = "501129039057747";
-export const APP_LOGIN_URL = 'https://www.facebook.com/dialog/oauth?scope=instagram_basic,instagram_manage_insights,pages_read_engagement,pages_show_list,ads_management,business_management&client_id=501129039057747&display=page&extras={"setup":{"channel":"IG_API_ONBOARDING"}}&redirect_uri=https://thelocalmangaka.github.io/pages/projects/ig_insights/index.html&response_type=token';
-// export const APP_LOGIN_URL ='https://www.facebook.com/dialog/oauth?scope=instagram_basic,instagram_manage_insights,pages_read_engagement,pages_show_list,ads_management,business_management&client_id=501129039057747&display=page&extras={"setup":{"channel":"IG_API_ONBOARDING"}}&redirect_uri=https://localhost:63342/thelocalmangaka.github.io/pages/projects/ig_insights/index.html&response_type=token';
+export const APP_LOGIN_URL =`https://www.facebook.com/dialog/oauth?scope=instagram_basic,instagram_manage_insights,pages_read_engagement,pages_show_list&client_id=501129039057747&display=page&extras={"setup":{"channel":"IG_API_ONBOARDING"}}&redirect_uri=${window.location.origin + window.location.pathname}&response_type=token`;
 
 export const GRAPH_API = "https://graph.facebook.com/";
 
@@ -13,5 +12,14 @@ export const TABLE_COLUMNS = [
     "ID", "Media Type",
     "Likes","Comments","Saved","Shares","Total Interactions",
     "Video Views","Replays","Plays","Total Plays","Total Watch-time (Hours)",
-    "Follows","Impressions","Profile Activity","Profile Visits"
+    "Follows","Impressions","Profile Activity","Profile Visits",
+    "Owner","Timestamp", "Permalink", "Errors"
 ]
+
+export const TABLE_MAP = {
+    "MEDIA": ["ID", "Media Type", "Owner","Timestamp", "Permalink"],
+    "GENERAL": ["Likes","Comments","Saved","Shares","Total Interactions"],
+    "VIDEO": ["Video Views","Replays","Plays","Total Plays","Total Watch-time (Hours)"],
+    "POST": ["Follows","Impressions","Profile Activity","Profile Visits"],
+    "ERROR": ["Errors"]
+}

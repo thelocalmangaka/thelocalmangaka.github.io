@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../../../styles/styles.css">
+    <meta charset="UTF-8">
+    <title>IGInsights | Info</title>
+    <link rel="icon" type="image/x-icon" href="/media/general/the_yellow_cat_icon.png">
+</head>
+<header>
+    <p><b>IGInsights</b></p>
+</header>
+<body>
+<p><b>The following metrics are calculated by this application:</b></p>
+<ul>
+    <li><i>1) <b>ID:</b> The ID associated with this media.</i></li>
+    <li><i>2) <b>Media Type:</b> The media's type. Can be IMAGE, VIDEO, or CAROUSEL ALBUM.</i></li>
+    <li><i>3) <b>Likes:</b> The number of likes this media received.</i></li>
+    <li><i>4) <b>Comments:</b> The number of comments this media received</i></li>
+    <li><i>5) <b>Saved:</b> The number of times this media was saved.</i></li>
+    <li><i>6) <b>Shares:</b> The number of times this media was shared.</i></li>
+    <li><i>7) <b>Total interactions:</b> Sum of likes, saves, comments, and shares.</i></li>
+</ul>
+<p><b>The following metrics are only calculated for video posts:</b></p>
+<ul>
+    <li><i>8) <b>Video Views:</b> The number of times this video has been watched for at least 3 seconds.</i></li>
+    <li><i>9) <b>Replays:</b> The number of times this video has been replayed for at least 1 millisecond.</i></li>
+    <li><i>10) <b>Plays:</b> The number of times this video has been initially played for at least 1 millisecond.</i></li>
+    <li><i>11) <b>Total Plays:</b> The total number of times this video has been played for at least 1 millisecond.</i></li>
+    <li><i>12) <b>Total Watch-time:</b> The total amount of time spent watching this video, measured in hours.</i></li>
+</ul>
+<p><b>And the following metrics are only calculated for non-video posts:</b></p>
+<ul>
+    <li><i>13) <b>Follows:</b> The number of times a user followed after viewing this post.*</i></li>
+    <li><i>14) <b>Impressions:</b> The number of times this post has been viewed.</i></li>
+    <li><i>15) <b>Profile activity:</b> The number of actions taken on this post.*<br/>
+        (Possible actions are: 1) Bio link clicked, 2) Call, 3) Direction, 4) Email, 5) Text, 6) Other)</i></li>
+    <li><i>16) <b>Profile visits:</b> The number of profile visits from this post.</i><br/><br/>
+        *<i>While these metrics are visible for videos on insights pages, (as of August 2024) they are currently not returned for videos via the Insights API.</i></li>
+</ul>
+<p><b>And these last metrics are also included for organizational purposes</b></p>
+<ul>
+    <li><i>17) <b>Owner:</b> The owner of this media, in case insights are calculated for multiple accounts.</i></li>
+    <li><i>18) <b>Timestamp:</b> The date and time this media was published, in UTC.</i></li>
+    <li><i>19) <b>Permalink:</b> The public viewable link to this media.</i></li>
+    <li><i>20) <b>Errors:</b> Any errors encountered with calculating insights for this media.</i></li>
+</ul>
+<p><b>Lastly, the Insights API will not return any data for posts created before a user created a professional Business or Creator account, regardless if metrics are currently viewable on their respective insights pages or not. (as of August 2024)</b></p>
+<p><i>
+    API Details regarding media info can be found <a href="https://developers.facebook.com/docs/instagram-platform/instagram-graph-api/reference/ig-media">here</a>.<br/>
+    API Details regarding media insights can be found <a href="https://developers.facebook.com/docs/instagram-platform/instagram-graph-api/reference/ig-media/insights">here</a>.
+</i></p>
+<p>
+    <a href="./index.html">back to project</a>
+</p>
+</body>
+<footer>
+    <p>
+        <a href="./privacy_policy.html">privacy policy</a>
+        <a href="./terms_and_conditions.html">terms and conditions</a>
+        <a href="https://github.com/thelocalmangaka/thelocalmangaka.github.io/tree/main/pages/projects/ig_insights">source code</a>
+    </p>
+</footer>
+</html>
