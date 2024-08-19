@@ -7,7 +7,29 @@ li {
     width: min(1000px, 100vw);
     font-family: 'Arial';
 }
-td { white-space:pre }
+table {
+    width: min(1000px, 100vw);
+    max-height: 500px;
+    display: block;
+    overflow-x: auto;
+    overflow-y: auto;
+    white-space: nowrap;
+}
+table, th, td {
+    font-family: 'Arial';
+    border: 1px solid;
+}
+th {
+    background-color: dodgerblue;
+    position: sticky;
+    top: 0;
+}
+td:nth-child(even){
+    background-color: #D6EEEE;
+}
+tr:last-child {
+    font-weight: bold;
+}
 body {
     width: min(1000px, 100vw);
 }

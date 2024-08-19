@@ -1,0 +1,15 @@
+.loader {
+    border: min(8px, 0.8vw) solid skyblue; /* Light grey */
+    border-top: min(8px, 0.8vw) solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: min(30px, 3vw);
+    height: min(30px, 3vw);
+    animation: spin 1s linear infinite;
+    margin:0 min(477px, 47.75vw);
+    display: none;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
