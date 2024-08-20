@@ -191,10 +191,8 @@ export async function insight() {
     document.getElementById('calculated').style.display = 'block';
     if (window.cancelled) {
         document.getElementById('cancelled_message').style.display = "block";
-        document.getElementById('cancelled_message').innerText = "Your process has been cancelled, but here are the results calculated thus far:";
     } else {
         document.getElementById('cancelled_message').style.display = "none";
-        document.getElementById('cancelled_message').innerText = "";
     }
     createTableHtml(table);
     createDownloadButton(table);
