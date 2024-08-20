@@ -12,6 +12,7 @@
   <script src="js/actions/login.js" type="module"></script>
   <script src="js/actions/logout.js" type="module"></script>
   <script src="js/actions/insight.js" async="async" type="module"></script>
+  <script src="js/actions/cancel.js" type="module"></script>
 </head>
 <header>
   <p><b>IGInsights</b></p>
@@ -53,7 +54,13 @@
   </div>
   <p><i>Info regarding insights calculated can be found <a href="./info.html">here</a>.</i></p>
   <div id="loader" class="loader"></div>
-  <p id="loader_message" style="display: none"><i>Calculation in progress... (Right-click and select 'Inspect' to see message updates in the console window)</i></p>
+  <div id="loader_message" style="display: none">
+    <p id="loader_console"></p>
+    <p>
+      <button onclick="cancel()">Cancel process</button>
+    </p>
+  </div>
+  <p id="cancelled_message" style="display: none"></p>
   <div id="table">
   </div>
   <p id="download"></p>

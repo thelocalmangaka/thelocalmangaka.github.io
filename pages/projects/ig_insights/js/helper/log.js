@@ -1,3 +1,10 @@
+export function log(message) {
+    console.log(message);
+    let element = document.getElementById('loader_console');
+    element.style.fontStyle = "italic";
+    element.innerText = message;
+}
+
 export function hasError(response) {
     return response!== null && response !== undefined
         && response.error !== null && response.error !== undefined
@@ -20,10 +27,6 @@ export function logError(error) {
 }
 
 export function logErrorString(message) {
-    console.log(message);
-}
-
-export function log(message) {
     console.log(message);
 }
 

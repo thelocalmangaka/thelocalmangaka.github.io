@@ -20,10 +20,16 @@ async function getInsights(mediaMap) {
     // Get insight of every media
     // Map every insight list to a businessAccountId
     for (const businessAccountId of mediaMap.businessAccountIds) {
+        if (window.cancelled) {
+            return insights;
+        }
         const mediaList = mediaMap[businessAccountId];
         const length = mediaList.length;
         let i = 1;
         for (const media of mediaList) {
+            if (window.cancelled) {
+                return insights;
+            }
             const id = media.id;
             log(`Getting media info for mediaId: ${id}, ${i} of ${length}...`);
             const mediaInfo = await fbGet(`${id}?fields=media_type,permalink,timestamp,username`);
@@ -45,7 +51,7 @@ async function getInsights(mediaMap) {
             let postResponse = {};
             if (!hasError(response) && mediaInfo.media_type === 'VIDEO') {
                 // video metrics
-                log(`Getting video insights for mediaId: ${id}...`);
+                log(`Getting video insights for mediaId: ${id}, ${i} of ${length}...`);
                 videoResponse = await fbGet(`${id}/insights?metric=video_views,clips_replays_count,plays,ig_reels_aggregated_all_plays_count,ig_reels_video_view_total_time`);
                 logJson(videoResponse);
                 if (hasError(videoResponse)) {
@@ -53,7 +59,7 @@ async function getInsights(mediaMap) {
                 }
             } else if(!hasError(response)) {
                 // post metrics
-                log(`Getting post insights for mediaId: ${id}...`);
+                log(`Getting post insights for mediaId: ${id}, ${i} of ${length}...`);
                 postResponse = await fbGet(`${id}/insights?metric=follows,impressions,profile_activity,profile_visits`);
                 logJson(postResponse);
                 if (hasError(postResponse)) {
@@ -71,6 +77,9 @@ async function getListOfMedia(businessAccountIds) {
     mediaMap.businessAccountIds = businessAccountIds;
     // Get list of all media, mapped to each businessAccountId
     for (const businessAccountId of businessAccountIds) {
+        if (window.cancelled) {
+            return mediaMap;
+        }
         log(`Getting media for businessAccountId: ${businessAccountId}...`);
         const response = await fbGet(`/${businessAccountId}?fields=media`);
         logJson(response);
@@ -86,12 +95,15 @@ async function getListOfMedia(businessAccountIds) {
         const media = response.media;
         mediaMap[businessAccountId] = [];
         mediaMap[businessAccountId].push(...media.data);
-        console.log(`Media length: ${mediaMap[businessAccountId].length}`);
+        log(`Media length: ${mediaMap[businessAccountId].length}`);
 
         // results are paginated, based on existence of "next" variable
         let next = media.paging !== null && media.paging !== undefined ? media.paging.next : null;
         let retry = 0;
         while (next !== null && next !== undefined) {
+            if (window.cancelled) {
+                return mediaMap;
+            }
             log(`Getting more media for businessAccountId: ${businessAccountId}...`)
             const nextResponse = await fetch(next)
                 .then(res => res.json());
@@ -124,6 +136,9 @@ async function getListOfMedia(businessAccountIds) {
 async function getBusinessAccountIds(pageIds) {
     let businessAccountIds = [];
     for (const pageId of pageIds) {
+        if (window.cancelled) {
+            return businessAccountIds;
+        }
         log(`Getting business account id for pageId: ${pageId}...`);
         const response = await fbGet(`/${pageId}?fields=instagram_business_account`);
         logJson(response);
@@ -142,6 +157,9 @@ async function getBusinessAccountIds(pageIds) {
 
 async function getPageIds() {
     let pageIds = [];
+    if (window.cancelled) {
+        return pageIds;
+    }
     log("Getting accounts...");
     const response = await fbGet('me/accounts');
     logJson(response);
@@ -160,6 +178,7 @@ async function getPageIds() {
 }
 
 export async function insight() {
+    window.cancelled = false;
     document.getElementById('loader').style.display = 'block';
     document.getElementById('loader_message').style.display = 'block';
     const pageIds = await getPageIds();
@@ -170,6 +189,13 @@ export async function insight() {
     document.getElementById('loader').style.display = 'none';
     document.getElementById('loader_message').style.display = 'none';
     document.getElementById('calculated').style.display = 'block';
+    if (window.cancelled) {
+        document.getElementById('cancelled_message').style.display = "block";
+        document.getElementById('cancelled_message').innerText = "Your process has been cancelled, but here are the results calculated thus far:";
+    } else {
+        document.getElementById('cancelled_message').style.display = "none";
+        document.getElementById('cancelled_message').innerText = "";
+    }
     createTableHtml(table);
     createDownloadButton(table);
 }
