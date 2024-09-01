@@ -34,3 +34,8 @@ body {
     width: min(1000px, 100vw);
 }
 iframe {border-style:none;}
+form {
+    font-family: 'Arial';
+    font-weight: bold;
+    text-align: center;
+}
