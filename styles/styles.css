@@ -28,6 +28,9 @@ td:nth-child(even){
     background-color: #D6EEEE;
 }
 tr:last-child {
+    background-color: #D6EEEE;
+    position: sticky;
+    bottom: 0;
     font-weight: bold;
 }
 body {
