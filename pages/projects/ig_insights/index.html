@@ -7,7 +7,7 @@
   <title>IGInsights</title>
   <link rel="icon" type="image/x-icon" href="/media/general/the_yellow_cat_icon.png">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="js/jQuery/js.cookie.js"></script>
+  <script src="js/external/jQuery/js.cookie.js"></script>
   <!--loads the FaceBook sdk into page-->
   <script src="js/actions/login.js" type="module"></script>
   <script src="js/actions/logout.js" type="module"></script>
@@ -90,7 +90,16 @@
       and columns in orange are exclusive to non-video category media.
     </i></p>
   </div>
+  <p id="createChart"></p>
+  <div id="igChart">
+    <div id="igChartTotalInteractions"></div>
+    <div id="igChartVideos"></div>
+    <div id="igChartPosts"></div>
+  </div>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+  <!--for creating charts-->
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="js/external/jQuery/jquery.cvs.js"></script>
 </body>
 <footer>
   <p>

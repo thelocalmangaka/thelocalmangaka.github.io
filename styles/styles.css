@@ -7,7 +7,7 @@ li {
     width: min(1000px, 100vw);
     font-family: 'Arial';
 }
-table {
+table, .igChart {
     width: min(1000px, 100vw);
     max-height: 500px;
     display: block;

@@ -1,5 +1,6 @@
-import {INSIGHT_KEYS, TABLE_COLUMNS, TABLE_MAP} from "../constants/facebook.js";
+import {INSIGHT_KEYS} from "../constants/facebook.js";
 import {getError, hasError, log} from "./log.js";
+import {CSV_KEY, TABLE_COLUMNS, TABLE_MAP} from "../constants/table.js";
 
 function populateInsight(insight, data) {
     for (const metric of data) {
@@ -128,7 +129,6 @@ export function createTableHtml(table) {
     log("Table created.");
 }
 
-const CSV_KEY = "csvContent";
 export function click() {
     log("Downloading csv file...");
     const csvContent = encodeURI(window.sessionStorage.getItem(CSV_KEY));

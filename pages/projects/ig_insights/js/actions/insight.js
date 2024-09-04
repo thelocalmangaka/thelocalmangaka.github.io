@@ -2,6 +2,7 @@ import {GRAPH_API} from "../constants/facebook.js";
 import {ACCESS_TOKEN_COOKIE_NAME} from "../constants/cookie.js";
 import {createDownloadButton, createInsight, createTable, createTableHtml} from "../helper/table.js";
 import {hasError, log, logError, logErrorString, logJson} from "../helper/log.js";
+import {createChartButton} from "./chart.js";
 
 async function fbGet(path) {
     let getPath = GRAPH_API + path;
@@ -196,6 +197,7 @@ export async function insight() {
     }
     createTableHtml(table);
     createDownloadButton(table);
+    createChartButton();
 }
 
 window.insight = insight;

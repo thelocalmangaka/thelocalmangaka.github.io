@@ -11,18 +11,4 @@ export const INSIGHT_KEYS = [
     "video_views","clips_replays_count","plays","ig_reels_aggregated_all_plays_count","ig_reels_video_view_total_time",
     "follows","impressions","profile_activity","profile_visits"
 ]
-export const TABLE_COLUMNS = [
-    "ID", "Media Type",
-    "Likes","Comments","Saved","Shares","Total Interactions",
-    "Video Views","Replays","Plays","Total Plays","Total Watch-time (Hours)",
-    "Follows","Impressions","Profile Activity","Profile Visits",
-    "Owner","Timestamp", "Permalink", "Errors"
-]
 
-export const TABLE_MAP = {
-    "MEDIA": ["ID", "Media Type", "Owner","Timestamp", "Permalink"],
-    "GENERAL": ["Likes","Comments","Saved","Shares","Total Interactions"],
-    "VIDEO": ["Video Views","Replays","Plays","Total Plays","Total Watch-time (Hours)"],
-    "POST": ["Follows","Impressions","Profile Activity","Profile Visits"],
-    "ERROR": ["Errors"]
-}
