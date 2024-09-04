@@ -1,5 +1,6 @@
-import {APP_ID} from "../constants/facebook.js";
-import {ACCESS_TOKEN_COOKIE_NAME} from "../constants/cookie.js";
+import {ACCESS_TOKEN_COOKIE_NAME, APP_ID_COOKIE} from "../constants/cookie.js";
+
+const APP_ID = $.cookie(APP_ID_COOKIE);
 
 export function changeView(isLoggedIn) {
     document.getElementById('login').style.display = isLoggedIn ? 'none' : 'block';
@@ -9,7 +10,7 @@ export function changeView(isLoggedIn) {
     document.getElementById('calculated').style.display = 'none';
 }
 
-export function saveCookie(authResponse) {
+export function saveTokenCookie(authResponse) {
     // After login, Facebook redirects back to our URL but with a token appended at the end
     const hash = window.location.hash.substring(1);
     const urlParams = hash.split('&').reduce(function (res, item) {
@@ -27,9 +28,9 @@ export function saveCookie(authResponse) {
     }
     if (accessToken !== null && accessToken !== undefined && accessToken !== ''
         && expiration !== null && expiration !== undefined && expiration !== '') {
-        console.log("Saving cookie...");
+        console.log("Saving access token cookie...");
         $.cookie(ACCESS_TOKEN_COOKIE_NAME, accessToken, { expiration: new Date(expiration) });
-        console.log(`Cookie saved at ${ACCESS_TOKEN_COOKIE_NAME}.`);
+        console.log(`Access token cookie saved at ${ACCESS_TOKEN_COOKIE_NAME}.`);
     }
 }
 
@@ -39,7 +40,8 @@ export function deleteCookies() {
     // cookie has name iterations of fblo_APP_ID and fbsr_APP_ID.
     $.each(document.cookie.split(/; */), function()  {
         const splitCookie = this.split('=');
-        if (splitCookie[0].includes(APP_ID) || splitCookie[0].includes(ACCESS_TOKEN_COOKIE_NAME)) {
+        // Also ensure we delete access token
+        if (splitCookie[0].includes(APP_ID) || splitCookie[0].includes(ACCESS_TOKEN_COOKIE_NAME) || splitCookie[0].includes(APP_ID_COOKIE)) {
             console.log("Deleting cookie...");
             $.cookie(splitCookie[0], null, {expires: -1});
             $.removeCookie(splitCookie[0], { path: '/' });

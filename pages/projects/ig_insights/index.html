@@ -13,10 +13,10 @@
   <script src="js/actions/logout.js" type="module"></script>
   <script src="js/actions/insight.js" async="async" type="module"></script>
   <script src="js/actions/cancel.js" type="module"></script>
+  <script src="js/actions/app_id.js" type="module"></script>
 </head>
 <header>
   <p><b>IGInsights</b></p>
-  <p style="color:red"><b><i>WORK IN PROGRESS</i></b></p>
 </header>
 <body>
   <p>
@@ -27,7 +27,7 @@
     <li>1) Create a Facebook Developer account and application, and add yourself as a Test User. Instructions <a href="./instructions.html">here</a>.</li>
     <li>2) Enter your newly created Application ID in the form below.</li>
     <li>3) Log into Facebook using the button below.</li>
-    <li>4) Create/associate a Facebook page with your Instagram profile (necessary to use Insight APIs).</li>
+    <li>4) Create/associate a Facebook page with your Instagram profile (necessary to use Insight APIs; instructions in login popup window if not done so already).</li>
     <li>5) Log into Instagram</li>
     <li>6) Follow instructions to grant this tool permissions to view your insights.</li>
     <ul>
@@ -41,16 +41,17 @@
     This tool also only works for public Instagram profiles that are associated with a professional Business or Creator account.<br/>
     ...and so if that sounds like you, please enjoy this tool!
   </p>
+  <form class="form-horizontal" onSubmit="return false;">
   <form action="./index.html">
-    <label for="appid">App ID:</label>
-    <input type="text" id="appid" name="appId"><br><br>
-    <input type="submit" value="Submit">
+    <label for="appId">App ID:</label>
+    <input type="text" id="appId">&nbsp;<span id="appIdError" style="color:red"></span><br><br>
+    <input type="button" value="Submit" onclick="saveAppId()">
   </form>
   <div id="login">
     <hr>
-    <p id="login_message"><i>Please submit your Facebook Developer Application ID before Facebook login is enabled.</i></p>
+    <p id="login_message"></p>
     <p>
-      <button disabled onclick="loginToFacebook()">Login to Facebook</button>
+      <button id="login_button" onclick="loginToFacebook()">Login to Facebook</button>
     </p>
   </div>
   <div id="loggedIn" style="display: none">

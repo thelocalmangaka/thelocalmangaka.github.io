@@ -1,5 +1,14 @@
-import {APP_ID, APP_LOGIN_URL} from "../constants/facebook.js";
-import {deleteCookies, changeView, saveCookie} from "../helper/session.js";
+import {APP_LOGIN_URL} from "../constants/facebook.js";
+import {changeView, saveTokenCookie} from "../helper/session.js";
+import {APP_ID_COOKIE} from "../constants/cookie.js";
+import {disableLogin, enableLogin} from "./app_id.js";
+
+const APP_ID = $.cookie(APP_ID_COOKIE);
+if (APP_ID !== null && APP_ID !== undefined) {
+    enableLogin();
+} else {
+    disableLogin();
+}
 
 function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
     console.log('Checking login status...');
@@ -7,11 +16,10 @@ function statusChangeCallback(response) {  // Called with the results from FB.ge
     if (response.status === 'connected') {   // Logged into your webpage and Facebook.
         changeView(true);
         getName();
-        saveCookie(response.authResponse);
+        saveTokenCookie(response.authResponse);
     } else {
-        console.log("Not logged in. If problem persists, usually can be resolved by clearing third party cookies then trying again.");
+        console.log("Not logged in. If problem persists, usually can be resolved by clearing third party cookies then trying again. (Inspect -> Application -> Storage -> 'Clear site data' (including third-party cookies))");
         changeView(false);
-        deleteCookies();
     }
 }
 

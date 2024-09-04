@@ -1,6 +1,6 @@
 import {deleteCookies, changeView} from "../helper/session.js";
 
-function logoutOfFacebook() {
+export function logoutOfFacebook() {
     changeView(false);
     console.log("Logging out...");
     FB.logout();
