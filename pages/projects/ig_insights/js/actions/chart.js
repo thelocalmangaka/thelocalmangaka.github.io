@@ -263,7 +263,7 @@ function createPostsChart(csvObject) {
     });
 }
 
-function chart() {
+export function createCharts() {
     let csvString = window.sessionStorage.getItem(CSV_KEY);
     csvString = csvString.replace("data:text/csv;charset=utf-8,","");
     const csvObject = $.csv.toObjects(csvString);
@@ -272,13 +272,13 @@ function chart() {
     createPostsChart(csvObject);
 }
 
-export function createChartButton() {
-    const chartButton = document.createElement('button');
-    chartButton.innerText = "Create Graphs";
-    chartButton.onclick = chart;
-    const chartDiv = document.querySelector('#createChart');
-    while(chartDiv.firstChild) {
-        chartDiv.removeChild(chartDiv.lastChild);
-    }
-    chartDiv.appendChild(chartButton);
-}
+// export function createChartButton() {
+//     const chartButton = document.createElement('button');
+//     chartButton.innerText = "Create Graphs";
+//     chartButton.onclick = createCharts;
+//     const chartDiv = document.querySelector('#createChart');
+//     while(chartDiv.firstChild) {
+//         chartDiv.removeChild(chartDiv.lastChild);
+//     }
+//     chartDiv.appendChild(chartButton);
+// }
