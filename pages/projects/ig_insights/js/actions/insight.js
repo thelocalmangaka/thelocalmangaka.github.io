@@ -4,6 +4,10 @@ import {createDownloadButton, createInsight, createTable, createTableHtml} from 
 import {hasError, log, logError, logErrorString, logJson} from "../helper/log.js";
 import {createCharts} from "./chart.js";
 
+function mask(id) {
+    return "••••" + id.substring(id.length-4);
+}
+
 async function fbGet(path) {
     let getPath = GRAPH_API + path;
     const token = await $.cookie(ACCESS_TOKEN_COOKIE_NAME);
@@ -32,14 +36,15 @@ async function getInsights(mediaMap) {
                 return insights;
             }
             const id = media.id;
-            log(`Getting media info for mediaId: ${id}, ${i} of ${length}...`);
+            const maskedId = mask(id);
+            log(`Getting media info for mediaId: ${maskedId}, ${i} of ${length}...`);
             const mediaInfo = await fbGet(`${id}?fields=media_type,permalink,timestamp,username`);
             logJson(mediaInfo);
             if (hasError(mediaInfo)) {
                 logError(mediaInfo.error);
             }
 
-            log(`Getting insights for mediaId: ${id}, ${i} of ${length}...`);
+            log(`Getting insights for mediaId: ${maskedId}, ${i} of ${length}...`);
             i = i + 1;
             // metrics available to all media types
             const response = await fbGet(`${id}/insights?metric=likes,comments,saved,shares,total_interactions`);
@@ -52,7 +57,7 @@ async function getInsights(mediaMap) {
             let postResponse = {};
             if (!hasError(response) && mediaInfo.media_type === 'VIDEO') {
                 // video metrics
-                log(`Getting video insights for mediaId: ${id}, ${i} of ${length}...`);
+                log(`Getting video insights for mediaId: ${maskedId}, ${i} of ${length}...`);
                 videoResponse = await fbGet(`${id}/insights?metric=video_views,clips_replays_count,plays,ig_reels_aggregated_all_plays_count,ig_reels_video_view_total_time`);
                 logJson(videoResponse);
                 if (hasError(videoResponse)) {
@@ -60,7 +65,7 @@ async function getInsights(mediaMap) {
                 }
             } else if(!hasError(response)) {
                 // post metrics
-                log(`Getting post insights for mediaId: ${id}, ${i} of ${length}...`);
+                log(`Getting post insights for mediaId: ${maskedId}, ${i} of ${length}...`);
                 postResponse = await fbGet(`${id}/insights?metric=follows,impressions,profile_activity,profile_visits`);
                 logJson(postResponse);
                 if (hasError(postResponse)) {
@@ -81,15 +86,16 @@ async function getListOfMedia(businessAccountIds) {
         if (window.cancelled) {
             return mediaMap;
         }
-        log(`Getting media for businessAccountId: ${businessAccountId}...`);
+        const maskedId = mask(businessAccountId);
+        log(`Getting media for businessAccountId: ${maskedId}...`);
         const response = await fbGet(`/${businessAccountId}?fields=media`);
         logJson(response);
         if (hasError(response)) {
-            logErrorString(`Media list not found for ${businessAccountId}.`);
+            logErrorString(`Media list not found for ${maskedId}.`);
             logError(response.error);
             continue;
         } else if (response.media === null || response.media === undefined) {
-            logErrorString(`Media list not found for ${businessAccountId}.`);
+            logErrorString(`Media list not found for ${maskedId}.`);
             continue;
         }
 
@@ -105,7 +111,7 @@ async function getListOfMedia(businessAccountIds) {
             if (window.cancelled) {
                 return mediaMap;
             }
-            log(`Getting more media for businessAccountId: ${businessAccountId}...`)
+            log(`Getting more media for businessAccountId: ${maskedId}...`)
             const nextResponse = await fetch(next)
                 .then(res => res.json());
             logJson(nextResponse);
@@ -140,7 +146,8 @@ async function getBusinessAccountIds(pageIds) {
         if (window.cancelled) {
             return businessAccountIds;
         }
-        log(`Getting business account id for pageId: ${pageId}...`);
+        const maskedId = mask(pageId);
+        log(`Getting business account id for pageId: ${maskedId}...`);
         const response = await fbGet(`/${pageId}?fields=instagram_business_account`);
         logJson(response);
         if (hasError(response)) {
