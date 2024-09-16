@@ -36,15 +36,14 @@ async function getInsights(mediaMap) {
                 return insights;
             }
             const id = media.id;
-            const maskedId = mask(id);
-            log(`Getting media info for mediaId: ${maskedId}, ${i} of ${length}...`);
+            log(`Getting media info for mediaId: ${id}, ${i} of ${length}...`);
             const mediaInfo = await fbGet(`${id}?fields=media_type,permalink,timestamp,username`);
             logJson(mediaInfo);
             if (hasError(mediaInfo)) {
                 logError(mediaInfo.error);
             }
 
-            log(`Getting insights for mediaId: ${maskedId}, ${i} of ${length}...`);
+            log(`Getting insights for mediaId: ${id}, ${i} of ${length}...`);
             i = i + 1;
             // metrics available to all media types
             const response = await fbGet(`${id}/insights?metric=likes,comments,saved,shares,total_interactions`);
@@ -57,7 +56,7 @@ async function getInsights(mediaMap) {
             let postResponse = {};
             if (!hasError(response) && mediaInfo.media_type === 'VIDEO') {
                 // video metrics
-                log(`Getting video insights for mediaId: ${maskedId}, ${i} of ${length}...`);
+                log(`Getting video insights for mediaId: ${id}, ${i} of ${length}...`);
                 videoResponse = await fbGet(`${id}/insights?metric=video_views,clips_replays_count,plays,ig_reels_aggregated_all_plays_count,ig_reels_video_view_total_time`);
                 logJson(videoResponse);
                 if (hasError(videoResponse)) {
@@ -65,7 +64,7 @@ async function getInsights(mediaMap) {
                 }
             } else if(!hasError(response)) {
                 // post metrics
-                log(`Getting post insights for mediaId: ${maskedId}, ${i} of ${length}...`);
+                log(`Getting post insights for mediaId: ${id}, ${i} of ${length}...`);
                 postResponse = await fbGet(`${id}/insights?metric=follows,impressions,profile_activity,profile_visits`);
                 logJson(postResponse);
                 if (hasError(postResponse)) {
