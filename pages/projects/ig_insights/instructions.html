@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="../../../styles/styles.css">
+    <link rel="stylesheet" href="../../../styles/collapsible.css">
     <meta charset="UTF-8">
     <title>IGInsights | Instructions</title>
     <link rel="icon" type="image/x-icon" href="/media/general/the_yellow_cat_icon.png">
@@ -11,22 +12,125 @@
 </header>
 <body>
     <p>
-        <a href="./index.html">back to project</a>
+        <a href="index.html">back to project</a>
     </p>
     <ul>
-        <li>While I initially wanted to make this tool available to anybody who could simply login to Facebook on my website, I can not publicly use Facebook's APIs without undergoing <a href="https://developers.facebook.com/docs/development/release/business-verification/">business verification</a> (and I do not own a business).</li>
-        <li>And so instead, I'm providing all my code for my Facebook application here, where all you have to do is insert your application ID, and run my application as if you were running your own application and accessing your own data.</li>
-        <li>I created a YouTube video showing all the steps you need to follow, or you can just read the steps below:</li>
+        <li>While I initially wanted to make this tool available to anybody who could simply login to Facebook on my website, I can not publicly use Facebook's APIs on other people's accounts without undergoing <a href="https://developers.facebook.com/docs/development/release/business-verification/">business verification</a> (and I do not own a business).</li>
+        <li>And so instead, I'm allowing my page to be run with any Facebook Developer Application ID, where anybody can make an application, then use my page to run their own application and access their own account data.</li>
+        <li><b>NOTE: I only want my page to be used by unpublished Facebook Developer applications, for users to view their own personal data. I do NOT want anybody using my website in applications that they intend to publish for public use.</b></li>
+        <li>Having said that, here are all the steps you need to follow to create a Facebook Developer Application that can be used on this page:</li>
     </ul>
-    <p style="color:red"><b><i>WORK IN PROGRESS</i></b></p>
+    <button type="button" class="collapsible"><b>STEP 1: Create a Facebook Developer Application</b></button>
+    <div class="content">
+        <ul>
+            <li>Visit <a href="https://developers.facebook.com">https://developers.facebook.com</a>.</li>
+            <li>Click on "My Apps" in the upper right hand corner:</li>
+        </ul>
+        <p><img border="1px solid black" src="media/developer_fb_home_page.png" alt="Facebook Developers Home Page" width="800"></p>
+        <ul>
+            <li>On the following page, click on "Create App" in the upper right hand corner.</li>
+        </ul>
+        <p><img border="1px solid black" src="media/create_app_button.png" alt="Create App" width="800"></p>
+        <ul>
+            <li>On the following page, select "I don't want to connect a business portfolio yet". (Your selection in this step doesn't actually matter)</li>
+            <li>Then click "Next".</li>
+        </ul>
+        <p><img border="1px solid black" src="media/business_portfolio.png" alt="Business Portfolio Selection" width="600"></p>
+        <ul>
+            <li>On the following page, select "Other".</li>
+            <li>Then click "Next".</li>
+        </ul>
+        <p><img border="1px solid black" src="media/select_other.png" alt="What do you want your app to do? Other." width="600"></p>
+        <ul>
+            <li>On the following page, select "Business" for your app type.</li>
+            <ul>
+                <li><i>The Insights APIs are meant to be used on Instagram "Business" entities, while a "Business"-type application is meant to manage these entities--and so only these types of applications can be granted permissions to use the Insights APIs.</i></li>
+            </ul>
+            <li>Then click "Next".</li>
+        </ul>
+        <p><img border="1px solid black" src="media/select_business_app_type.png" alt="Business App Type." width="600"></p>
+        <ul>
+            <li>On the following page, input any name for your application</li>
+            <li>Then click on "Create app".</li>
+        </ul>
+        <p><img border="1px solid black" src="media/create_app_name.png" alt="Create App" width="600"></p>
+    </div>
+    <button type="button" class="collapsible"><b>STEP 2: Enable Facebook Login</b></button>
+    <div class="content">
+        <p><img border="1px solid black" src="media/app_dashboard.png" alt="App Dashboard" width="800"></p>
+        <ul>
+            <li>In the dashboard that opens up, you will be presented with possible products you can add to your app.</li>
+            <li>Scroll down and look for "Facebook Login for Business".</li>
+            <li>Click on "Set up".</li>
+        </ul>
+        <p><img border="1px solid black" src="media/facebook_login_product.png" alt="Facebook Login Product" width="400"></p>
+        <ul>
+            <li>This will result in "Facebook Login for Business" being added to the left sidebar.</li>
+            <li>Click on it, and select "Settings" beneath.</li>
+        </ul>
+        <p><img border="1px solid black" src="media/facebook_login_settings.png" alt="Facebook Login Settings" width="800"></p>
+        <ul>
+            <li>Scroll down and look for "Valid OAuth Redirect URIs":</li>
+            <ul>
+                <li><b>Enter "https://thelocalmangaka.github.io/pages/projects/ig_insights/index.html" into this field.</b></li>
+                <li><i>This allows Facebook to redirect back to my page after you login.</i></li>
+            </ul>
+            <li>Below this you will see "Login with the JavaScript SDK":</li>
+            <ul>
+                <li><b>Toggle this field to "Yes".</b></li>
+                <li><i>This allows the code for Facebook Login with your application ID to work on my page.</i></li>
+            </ul>
+            <li>Below this you will see "Allowed Domains for the JavaScript SDK":</li>
+            <ul>
+                <li><b>Enter "https://thelocalmangaka.github.io/" into this field.</b></li>
+            </ul>
+            <li>Click on "Save changes".</li>
+        </ul>
+        <p><img border="1px solid black" src="media/redirect_urls.png" alt="Redirect URLs and Enabling Javascript SDK" width="600"></p>
+    </div>
+    <button type="button" class="collapsible"><b>STEP 3: Set App to Live</b></button>
+    <div class="content">
+        <ul>
+            <li>In the left sidebar, click on "App Settings".</li>
+            <li>Click on "Basic" beneath it.</li>
+        </ul>
+        <p><img border="1px solid black" src="media/basic_settings.png" alt="Basic Settings" width="800"></p>
+        <ul>
+            <li>Look for the "Privacy Policy URL" field.</li>
+            <ul>
+                <li><b>Enter "https://thelocalmangaka.github.io/pages/projects/ig_insights/privacy_policy.html" into this field.</b></li>
+            </ul>
+            <li>Look for the "Terms of Service URL" field.</li>
+            <ul>
+                <li><b>Enter "https://thelocalmangaka.github.io/pages/projects/ig_insights/terms_and_conditions.html" into this field.</b></li>
+            </ul>
+            <li>Click on "Save changes".</li>
+            <ul>
+                <li><i>The purpose of these steps is that they are necessary fields to enter to enable this app to go "live".</i></li>
+                <li><i>By "live", it just means the ability to use this application to access your own account data.</i></li>
+                <li><i>If you ever undergo business verification and actually publish this application for public use, a privacy policy and terms of service will be needed for legal purposes, <b>but this tutorial and page are not intended for actually publishing your application for public use and I strictly do not want anybody utilizing my website for such purposes.</b></i></li>
+            </ul>
+        </ul>
+        <p><img border="1px solid black" src="media/policy_urls.png" alt="Basic Settings" width="800"></p>
+        <ul>
+            <li>In the upper menu bar, look for "App Mode".</li>
+            <li>Toggle this button from "Development" to "Live".</li>
+        </ul>
+        <p><img border="1px solid black" src="media/app_mode_live.png" alt="App Mode: Live" width="800"></p>
+        <ul>
+            <li>Congratulations! You have completed all the steps necessary to use my page!</li>
+            <li>Return to the project page, and copy/paste in your now functional Application ID!</li>
+        </ul>
+    </div>
     <p>
-        <a href="./index.html">back to project</a>
+        <a href="index.html">back to project</a>
     </p>
+    <script src="../../../js/collapsible.js"></script>
 </body>
 <footer>
     <p>
-        <a href="./privacy_policy.html">privacy policy</a>
-        <a href="./terms_and_conditions.html">terms and conditions</a>
+        <a href="privacy_policy.html">privacy policy</a>
+        <a href="terms_and_conditions.html">terms and conditions</a>
         <a href="https://github.com/thelocalmangaka/thelocalmangaka.github.io/tree/main/pages/projects/ig_insights">source code</a>
         <a href="../../../index.html">home</a>
     </p>
