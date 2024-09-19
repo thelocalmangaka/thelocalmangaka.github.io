@@ -42,3 +42,13 @@ form {
     font-weight: bold;
     text-align: center;
 }
+@media only screen and (max-width:480px) {
+    input[type=button] {
+        font-size: 12pt;
+        width: min(1000px, 100vw);
+    }
+    button {
+        font-size: 12pt;
+        width: min(1000px, 100vw);
+    }
+}
