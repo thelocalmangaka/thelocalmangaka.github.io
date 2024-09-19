@@ -10,7 +10,7 @@ function mask(id) {
 
 async function fbGet(path) {
     let getPath = GRAPH_API + path;
-    const token = await $.cookie(ACCESS_TOKEN_COOKIE_NAME);
+    const token = $.cookie(ACCESS_TOKEN_COOKIE_NAME);
     if (getPath.includes("?")) {
         getPath += `&access_token=${token}`;
     } else {
