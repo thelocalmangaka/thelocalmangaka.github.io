@@ -25,6 +25,9 @@ function statusChangeCallback(response) {  // Called with the results from FB.ge
         if (token !== null && token !== undefined) {
             changeView(true);
             getName(token);
+        } else {
+            console.log("Not logged in. If problem persists, usually can be resolved by clearing third party cookies then trying again. (Inspect -> Application -> Storage -> 'Clear site data' (including third-party cookies))");
+            changeView(false);
         }
     } else {
         console.log("Not logged in. If problem persists, usually can be resolved by clearing third party cookies then trying again. (Inspect -> Application -> Storage -> 'Clear site data' (including third-party cookies))");
