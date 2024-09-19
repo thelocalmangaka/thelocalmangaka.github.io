@@ -8,7 +8,6 @@
   <link rel="icon" type="image/x-icon" href="/media/general/the_yellow_cat_icon.png">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="js/external/jQuery/js.cookie.js"></script>
-  <!--loads the FaceBook sdk into page-->
   <script src="js/actions/login.js" type="module"></script>
   <script src="js/actions/logout.js" type="module"></script>
   <script src="js/actions/insight.js" async="async" type="module"></script>
@@ -19,6 +18,7 @@
   <p><b>IGInsights</b></p>
 </header>
 <body>
+<div id="fb-root"></div>
   <p>
     This tool can calculate the total sum of likes, plays, watch-time, etc. on all your Instagram posts over their entire lifetimes!<br/>
     This tool uses <a href="https://developers.facebook.com/docs/instagram-platform/instagram-api-with-facebook-login">Facebook APIs</a> and all you need to do is:
@@ -50,14 +50,13 @@
     <input type="text" id="appId">&nbsp;<span id="appIdError" style="color:red"></span><br><br>
     <input type="button" value="Submit" onclick="saveAppId()">
   </form>
+  <p><i>Info regarding insights calculated can be found <a href="./info.html">here</a>.</i></p>
   <div id="login">
     <hr>
     <p id="login_message"></p>
     <p>
       <button id="login_button" onclick="loginToFacebook()">Login to Facebook</button>
     </p>
-    <p><i>*If you have issues with logging in, this can usually be resolved by clearing third party cookies then trying again.
-      <br>(e.g. on Chrome: Inspect -> Application -> Storage -> 'Clear site data' (including third-party cookies))</i></p>
   </div>
   <div id="loggedIn" style="display: none">
     <hr>
@@ -69,7 +68,6 @@
       <button onclick="logoutOfFacebook()">Logout of Facebook</button>
     </p>
   </div>
-  <p><i>Info regarding insights calculated can be found <a href="./info.html">here</a>.</i></p>
   <div id="loader" class="loader"></div>
   <div id="loader_message" style="display: none">
     <p id="loader_console"></p>

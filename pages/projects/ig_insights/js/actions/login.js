@@ -1,6 +1,6 @@
 import {APP_LOGIN_URL} from "../constants/facebook.js";
 import {changeView, saveTokenCookie} from "../helper/session.js";
-import {APP_ID_COOKIE} from "../constants/cookie.js";
+import {ACCESS_TOKEN_COOKIE_NAME, APP_ID_COOKIE} from "../constants/cookie.js";
 import {disableLogin, enableLogin} from "./app_id.js";
 
 const APP_ID = $.cookie(APP_ID_COOKIE);
@@ -17,16 +17,19 @@ function statusChangeCallback(response) {  // Called with the results from FB.ge
         changeView(true);
         getName();
         saveTokenCookie(response.authResponse);
+    } else if (response.status === 'unknown') {
+        // Check if token is in URL params, or if token already exists...
+        console.log('Checking for existing token session...');
+        saveTokenCookie();
+        const token = $.cookie(ACCESS_TOKEN_COOKIE_NAME);
+        if (token !== null && token !== undefined) {
+            changeView(true);
+            getName(token);
+        }
     } else {
         console.log("Not logged in. If problem persists, usually can be resolved by clearing third party cookies then trying again. (Inspect -> Application -> Storage -> 'Clear site data' (including third-party cookies))");
         changeView(false);
     }
-}
-
-function checkLoginState() {               // Called when a person is finished with the Login Button.
-    FB.getLoginStatus(function(response) {   // See the onlogin handler
-        statusChangeCallback(response);
-    });
 }
 
 window.fbAsyncInit = function() {
@@ -42,9 +45,13 @@ window.fbAsyncInit = function() {
     });
 };
 
-function getName() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+function getName(token) {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
     console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response) {
+    let endpoint = "/me";
+    if (token !== null && token !== undefined) {
+        endpoint += "?access_token=" + token;
+    }
+    FB.api(endpoint, function(response) {
         console.log('Successful login for: ' + response.name);
         document.getElementById('welcome').innerText =
             'Thanks for logging in, ' + response.name + '!';
