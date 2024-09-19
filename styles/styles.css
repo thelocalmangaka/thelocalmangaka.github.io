@@ -45,14 +45,24 @@ form {
 @media only screen and (orientation: portrait) {
     input[type=button] {
         font-size: xxx-large;
+        font-weight: bold;
         width: min(1000px, 100vw);
         background-color: blue;
         color: white;
     }
+    input[type=button]:active {
+        background-color: cornflowerblue;
+        transform: translateY(4px);
+    }
     button {
         font-size: xxx-large;
+        font-weight: bold;
         width: min(1000px, 100vw);
         background-color: blue;
         color: white;
+    }
+    button:active {
+        background-color: cornflowerblue;
+        transform: translateY(4px);
     }
 }
