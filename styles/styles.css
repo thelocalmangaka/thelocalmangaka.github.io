@@ -50,7 +50,7 @@ input[type=button] {
     color: white;
     border-radius: 16px;
 }
-input[type=button]:hover {
+input[type=button]:hover:enabled {
     background-color: cornflowerblue;
     transform: translateY(4px);
 }
@@ -78,6 +78,10 @@ button:active {
     transform: scale(0.9);
 }
 @media only screen and (orientation: portrait) {
+    input[type=text] {
+        font-size: xxx-large;
+        width: min(500px, 50vw);
+    }
     input[type=button] {
         font-size: xx-large;
         font-weight: bold;
