@@ -85,13 +85,13 @@ button:active {
     input[type=button] {
         font-size: xxx-large;
         font-weight: bold;
-        width: min(500px, 50vw);
+        width: min(750px, 75vw);
         border-radius: 16px;
     }
     button {
         font-size: xxx-large;
         font-weight: bold;
-        width: min(500px, 50vw);
+        width: min(750px, 75vw);
         border-radius: 16px;
     }
 }
