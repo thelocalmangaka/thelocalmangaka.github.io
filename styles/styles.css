@@ -66,7 +66,10 @@ button {
     color: white;
     border-radius: 16px;
 }
-button:hover {
+button:disabled {
+    background-color: grey;
+}
+button:hover:enabled {
     background-color: cornflowerblue;
     transform: translateY(4px);
 }
