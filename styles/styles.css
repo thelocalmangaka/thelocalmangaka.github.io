@@ -73,10 +73,6 @@ button:hover:enabled {
     background-color: cornflowerblue;
     transform: translateY(4px);
 }
-button:focus {
-    background-color: cornflowerblue;
-    transform: scale(0.9);
-}
 button:active {
     background-color: cornflowerblue;
     transform: scale(0.9);
