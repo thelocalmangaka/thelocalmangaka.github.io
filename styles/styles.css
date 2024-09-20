@@ -77,21 +77,3 @@ button:active {
     background-color: cornflowerblue;
     transform: scale(0.9);
 }
-@media only screen and (orientation: portrait) {
-    input[type=text] {
-        font-size: xxx-large;
-        width: min(500px, 50vw);
-    }
-    input[type=button] {
-        font-size: xxx-large;
-        font-weight: bold;
-        width: min(750px, 75vw);
-        border-radius: 16px;
-    }
-    button {
-        font-size: xxx-large;
-        font-weight: bold;
-        width: min(750px, 75vw);
-        border-radius: 16px;
-    }
-}
