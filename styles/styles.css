@@ -79,13 +79,13 @@ button:active {
 }
 @media only screen and (orientation: portrait) {
     input[type=button] {
-        font-size: xxx-large;
+        font-size: xx-large;
         font-weight: bold;
         width: min(800px, 80vw);
         border-radius: 16px;
     }
     button {
-        font-size: xxx-large;
+        font-size: xx-large;
         font-weight: bold;
         width: min(800px, 80vw);
         border-radius: 16px;
