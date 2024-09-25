@@ -1,4 +1,4 @@
-import {INSIGHT_KEYS} from "../constants/facebook.js";
+import {INSIGHT, INSIGHT_KEYS, MEDIA_TYPE} from "../constants/facebook.js";
 import {getError, hasError, log} from "./log.js";
 import {CSV_KEY, TABLE_COLUMNS, TABLE_MAP} from "../constants/table.js";
 
@@ -39,46 +39,62 @@ export function createInsight(mediaInfo, response, videoResponse, postResponse) 
     return insight;
 }
 
-function createRow(insight, totalInsight) {
+function createRow(insight) {
     let row = `${insight.id},${insight.media_type}`
     for (const key of INSIGHT_KEYS) {
         if (insight[key] === null || insight[key] === undefined) {
             row += ',0';
-        } else if (key === `ig_reels_video_view_total_time`) {
+        } else if (key === INSIGHT.TOTAL_WATCH_TIME) {
             const millis = insight[key];
             const seconds = millis / parseFloat("1000");
             const minutes = seconds / parseFloat("60");
             const hours = minutes / parseFloat("60");
             row += `,${hours.toFixed(3)}`;
-            totalInsight[key] += hours;
         } else {
             row += `,${insight[key]}`;
-            totalInsight[key] += insight[key];
         }
     }
     row += `,${insight.username},${insight.timestamp},${insight.permalink},${insight.errors}`;
     return row;
 }
 
-export function createTable(insights) {
-    log("Creating table...");
-    let table = [];
-    // Create header
-    let header = TABLE_COLUMNS.join(',');
-    table.push(header);
+export function createTotal(insights) {
     // Initialize totals
     let totalInsight = {};
     for (const key of INSIGHT_KEYS) {
         totalInsight[key] = 0;
     }
+    for (const insight of insights) {
+        for (const key of INSIGHT_KEYS) {
+            if (insight[key] === null || insight[key] === undefined) {
+            } else if (key === INSIGHT.TOTAL_WATCH_TIME) {
+                const millis = insight[key];
+                const seconds = millis / parseFloat("1000");
+                const minutes = seconds / parseFloat("60");
+                const hours = minutes / parseFloat("60");
+                totalInsight[key] += hours;
+            } else {
+                totalInsight[key] += insight[key];
+            }
+        }
+    }
+    return totalInsight;
+}
+
+export function createTable(insights, totalInsight) {
+    log("Creating table...");
+    let table = [];
+    // Create header
+    let header = TABLE_COLUMNS.join(',');
+    table.push(header);
     // Stringify each row, while summing to total
     for (const insight of insights) {
-        table.push(createRow(insight, totalInsight));
+        table.push(createRow(insight));
     }
     // Append total
     let totalInsightString = "Total:, ALL";
     for (const key of INSIGHT_KEYS) {
-        if (key === `ig_reels_video_view_total_time`) {
+        if (key === INSIGHT.TOTAL_WATCH_TIME) {
             totalInsightString += `,${totalInsight[key].toFixed(3)}`;
         } else {
             totalInsightString += `,${totalInsight[key]}`;
@@ -127,6 +143,92 @@ export function createTableHtml(table) {
     // Insert into html
     tableDiv.appendChild(tableHtml);
     log("Table created.");
+}
+
+function addCommas(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function getTimeBreakdown(totalHours) {
+    let hours = Math.floor(totalHours);
+    const hoursDiff = totalHours - hours;
+    const minutes = Math.floor(hoursDiff * 60);
+    const minutesDiff =  hoursDiff * 60 - minutes;
+    const seconds = Math.floor(minutesDiff * 60);
+    const secondsDiff = minutesDiff * 60 - seconds;
+    const millis = Math.floor(secondsDiff * 1000);
+
+    let days = 0;
+    let years = 0;
+    if (hours > 24) {
+        days = Math.floor(hours / 24);
+        hours = hours % 24;
+        if (days > 365) {
+            years = Math.floor(days / 365);
+            days = days % 365;
+        }
+    }
+    if (years > 0) {
+        return `${addCommas(years)}y ${days}d  ${hours}h ${minutes}m ${seconds}s ${millis}ms`;
+    } else if (days > 0) {
+        return `${days}d  ${hours}h ${minutes}m ${seconds}s ${millis}ms`;
+    } else if (hours > 0) {
+        return `${hours}h ${minutes}m ${seconds}s ${millis}ms`;
+    } else if (minutes > 0) {
+        return `${minutes}m ${seconds}s ${millis}ms`;
+    } else if (seconds > 0) {
+        return `${seconds}s ${millis}ms`;
+    } else {
+        return `${millis}ms`;
+    }
+}
+
+export function createTotalHtml(totalInsight) {
+    const totalElement = document.querySelector('#total');
+    const likes = addCommas(totalInsight[INSIGHT.LIKES]);
+    const comments = addCommas(totalInsight[INSIGHT.COMMENTS]);
+    const saves = addCommas(totalInsight[INSIGHT.SAVED]);
+    const shares = addCommas(totalInsight[INSIGHT.SHARES]);
+    const views = addCommas(totalInsight[INSIGHT.VIDEO_VIEWS]);
+    const timeBreakdown = getTimeBreakdown(totalInsight[INSIGHT.TOTAL_WATCH_TIME]);
+    totalElement.innerHTML = `You have ${likes} likes, ${comments} comments, ${saves} saves, and ${shares} shares!<br/>
+        You also have ${views} views and ${timeBreakdown} of watch time!`;
+}
+
+export function createAverageHtml(totalInsight, insightCount) {
+    const averageElement = document.querySelector('#average');
+    if (insightCount === 0) {
+        averageElement.innerHTML = "";
+        return;
+    }
+    const likes = addCommas((totalInsight[INSIGHT.LIKES] / insightCount).toFixed(3));
+    const comments = addCommas((totalInsight[INSIGHT.COMMENTS] / insightCount).toFixed(3));
+    const saves = addCommas((totalInsight[INSIGHT.SAVED] / insightCount).toFixed(3));
+    const shares = addCommas((totalInsight[INSIGHT.SHARES] / insightCount).toFixed(3));
+
+    averageElement.innerHTML = `Over ${insightCount} posts, that's an average of<br/>
+        ${likes} likes, ${comments} comments, ${saves} saves, and ${shares} shares per post!<br/>`;
+}
+
+export function createVideoAverageHtml(totalInsight, insights) {
+    const averageElement = document.querySelector('#videoAverage');
+    let videoCount = 0;
+    for (const insight of insights) {
+        if (insight.media_type === MEDIA_TYPE.VIDEO) {
+            videoCount += 1;
+        }
+    }
+    if (videoCount === 0) {
+        averageElement.innerHTML = "";
+        return;
+    }
+    const views = addCommas((totalInsight[INSIGHT.VIDEO_VIEWS] / videoCount).toFixed(3));
+
+    const timeBreakdown = getTimeBreakdown(totalInsight[INSIGHT.TOTAL_WATCH_TIME] / videoCount);
+    const viewBreakdown = getTimeBreakdown(totalInsight[INSIGHT.TOTAL_WATCH_TIME] / totalInsight[INSIGHT.VIDEO_VIEWS]);
+    averageElement.innerHTML = `Over ${videoCount} videos, that's an average of<br/>
+        ${views} views and ${timeBreakdown} per video<br/>
+        and ${viewBreakdown} per view!`;
 }
 
 export function click() {

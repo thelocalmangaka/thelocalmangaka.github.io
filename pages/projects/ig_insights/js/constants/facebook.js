@@ -6,9 +6,26 @@ export const APP_LOGIN_URL =`https://www.facebook.com/dialog/oauth?scope=busines
 
 export const GRAPH_API = "https://graph.facebook.com/";
 
-export const INSIGHT_KEYS = [
-    "likes","comments","saved","shares","total_interactions",
-    "video_views","clips_replays_count","plays","ig_reels_aggregated_all_plays_count","ig_reels_video_view_total_time",
-    "follows","impressions","profile_activity","profile_visits"
-]
+export const MEDIA_TYPE = {
+    VIDEO: 'VIDEO'
+}
+
+export const INSIGHT = {
+    LIKES: "likes",
+    COMMENTS: "comments",
+    SAVED: "saved",
+    SHARES: "shares",
+    TOTAL_INTERACTIONS: "total_interactions",
+    VIDEO_VIEWS: "video_views",
+    REPLAYS: "clips_replays_count",
+    PLAYS: "plays",
+    TOTAL_PLAYS: "ig_reels_aggregated_all_plays_count",
+    TOTAL_WATCH_TIME: "ig_reels_video_view_total_time",
+    FOLLOWS: "follows",
+    IMPRESSIONS: "impressions",
+    PROFILE_ACTIVITY: "profile_activity",
+    PROFILE_VISITS: "profile_visits"
+}
+
+export const INSIGHT_KEYS = Object.values(INSIGHT);
 

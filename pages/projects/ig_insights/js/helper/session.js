@@ -7,7 +7,6 @@ export function changeView(isLoggedIn) {
     document.getElementById('loggedIn').style.display = isLoggedIn ? 'block' : 'none';
     document.getElementById('loader').style.display = 'none';
     document.getElementById('loader_message').style.display = 'none';
-    document.getElementById('calculated').style.display = 'none';
 }
 
 export function saveTokenCookie(authResponse) {

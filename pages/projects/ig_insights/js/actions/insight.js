@@ -1,6 +1,14 @@
-import {GRAPH_API} from "../constants/facebook.js";
+import {GRAPH_API, MEDIA_TYPE} from "../constants/facebook.js";
 import {ACCESS_TOKEN_COOKIE_NAME} from "../constants/cookie.js";
-import {createDownloadButton, createInsight, createTable, createTableHtml} from "../helper/table.js";
+import {
+    createAverageHtml,
+    createDownloadButton,
+    createInsight,
+    createTable,
+    createTableHtml,
+    createTotal,
+    createTotalHtml, createVideoAverageHtml
+} from "../helper/table.js";
 import {hasError, log, logError, logErrorString, logJson} from "../helper/log.js";
 import {createCharts} from "./chart.js";
 
@@ -54,7 +62,7 @@ async function getInsights(mediaMap) {
 
             let videoResponse = {};
             let postResponse = {};
-            if (!hasError(response) && mediaInfo.media_type === 'VIDEO') {
+            if (!hasError(response) && mediaInfo.media_type === MEDIA_TYPE.VIDEO) {
                 // video metrics
                 log(`Getting video insights for mediaId: ${id}, ${i} of ${length}...`);
                 videoResponse = await fbGet(`${id}/insights?metric=video_views,clips_replays_count,plays,ig_reels_aggregated_all_plays_count,ig_reels_video_view_total_time`);
@@ -192,7 +200,8 @@ export async function insight() {
     const businessAccountIds = await getBusinessAccountIds(pageIds);
     const mediaMap = await getListOfMedia(businessAccountIds);
     const insights = await getInsights(mediaMap);
-    const table = createTable(insights);
+    const totalInsight = createTotal(insights);
+    const table = createTable(insights, totalInsight);
     document.getElementById('loader').style.display = 'none';
     document.getElementById('loader_message').style.display = 'none';
     document.getElementById('calculated').style.display = 'block';
@@ -202,6 +211,9 @@ export async function insight() {
         document.getElementById('cancelled_message').style.display = "none";
     }
     createTableHtml(table);
+    createTotalHtml(totalInsight);
+    createAverageHtml(totalInsight, insights.length);
+    createVideoAverageHtml(totalInsight, insights);
     createDownloadButton(table);
     createCharts();
 }
