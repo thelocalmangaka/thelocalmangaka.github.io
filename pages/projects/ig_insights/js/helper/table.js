@@ -201,10 +201,10 @@ export function createAverageHtml(totalInsight, insightCount) {
         averageElement.innerHTML = "";
         return;
     }
-    const likes = addCommas((totalInsight[INSIGHT.LIKES] / insightCount).toFixed(3));
-    const comments = addCommas((totalInsight[INSIGHT.COMMENTS] / insightCount).toFixed(3));
-    const saves = addCommas((totalInsight[INSIGHT.SAVED] / insightCount).toFixed(3));
-    const shares = addCommas((totalInsight[INSIGHT.SHARES] / insightCount).toFixed(3));
+    const likes = addCommas(Math.round(totalInsight[INSIGHT.LIKES] / insightCount));
+    const comments = addCommas(Math.round(totalInsight[INSIGHT.COMMENTS] / insightCount));
+    const saves = addCommas(Math.round(totalInsight[INSIGHT.SAVED] / insightCount));
+    const shares = addCommas(Math.round(totalInsight[INSIGHT.SHARES] / insightCount));
 
     averageElement.innerHTML = `Over ${insightCount} posts, that's an average of<br/>
         ${likes} likes, ${comments} comments, ${saves} saves, and ${shares} shares per post!<br/>`;
@@ -222,7 +222,7 @@ export function createVideoAverageHtml(totalInsight, insights) {
         averageElement.innerHTML = "";
         return;
     }
-    const views = addCommas((totalInsight[INSIGHT.VIDEO_VIEWS] / videoCount).toFixed(3));
+    const views = addCommas(Math.round(totalInsight[INSIGHT.VIDEO_VIEWS] / videoCount));
 
     const timeBreakdown = getTimeBreakdown(totalInsight[INSIGHT.TOTAL_WATCH_TIME] / videoCount);
     const viewBreakdown = getTimeBreakdown(totalInsight[INSIGHT.TOTAL_WATCH_TIME] / totalInsight[INSIGHT.VIDEO_VIEWS]);
