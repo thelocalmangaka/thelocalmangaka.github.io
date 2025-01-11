@@ -189,10 +189,10 @@ export function createTotalHtml(totalInsight) {
     const comments = addCommas(totalInsight[INSIGHT.COMMENTS]);
     const saves = addCommas(totalInsight[INSIGHT.SAVED]);
     const shares = addCommas(totalInsight[INSIGHT.SHARES]);
-    const views = addCommas(totalInsight[INSIGHT.VIDEO_VIEWS]);
+    const plays = addCommas(totalInsight[INSIGHT.TOTAL_PLAYS]);
     const timeBreakdown = getTimeBreakdown(totalInsight[INSIGHT.TOTAL_WATCH_TIME]);
     totalElement.innerHTML = `You have ${likes} likes, ${comments} comments, ${saves} saves, and ${shares} shares!<br/>
-        You also have ${views} views and ${timeBreakdown} of watch time!`;
+        You also have ${plays} plays and ${timeBreakdown} of watch time!`;
 }
 
 export function createAverageHtml(totalInsight, insightCount) {
@@ -222,12 +222,12 @@ export function createVideoAverageHtml(totalInsight, insights) {
         averageElement.innerHTML = "";
         return;
     }
-    const views = addCommas(Math.round(totalInsight[INSIGHT.VIDEO_VIEWS] / videoCount));
+    const averagePlays = addCommas(Math.round(totalInsight[INSIGHT.TOTAL_PLAYS] / videoCount));
 
     const timeBreakdown = getTimeBreakdown(totalInsight[INSIGHT.TOTAL_WATCH_TIME] / videoCount);
-    const viewBreakdown = getTimeBreakdown(totalInsight[INSIGHT.TOTAL_WATCH_TIME] / totalInsight[INSIGHT.VIDEO_VIEWS]);
+    const viewBreakdown = getTimeBreakdown(totalInsight[INSIGHT.TOTAL_WATCH_TIME] / totalInsight[INSIGHT.TOTAL_PLAYS]);
     averageElement.innerHTML = `Over ${videoCount} videos, that's an average of<br/>
-        ${views} views and ${timeBreakdown} per video<br/>
+        ${averagePlays} plays and ${timeBreakdown} per video<br/>
         and ${viewBreakdown} per view!`;
 }
 

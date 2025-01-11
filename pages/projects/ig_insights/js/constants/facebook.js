@@ -16,7 +16,8 @@ export const INSIGHT = {
     SAVED: "saved",
     SHARES: "shares",
     TOTAL_INTERACTIONS: "total_interactions",
-    VIDEO_VIEWS: "video_views",
+    // NOTE: video_views was deprecated after v21.0
+    // VIDEO_VIEWS: "video_views",
     REPLAYS: "clips_replays_count",
     PLAYS: "plays",
     TOTAL_PLAYS: "ig_reels_aggregated_all_plays_count",

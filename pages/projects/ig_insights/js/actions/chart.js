@@ -96,7 +96,8 @@ function createTotalInteractionsChart(csvObject) {
 }
 
 function createVideosChart(csvObject) {
-    let viewsData = [];
+    // NOTE: video_views deprecated after v21.0
+    // let viewsData = [];
     let replaysData = [];
     let playsData = [];
     let totalData = [];
@@ -104,11 +105,12 @@ function createVideosChart(csvObject) {
         if (row["Errors"] || row["Media Type"] !== "VIDEO") {
             continue;
         }
-        viewsData.push({
-            x: Date.parse(row["Timestamp"]),
-            y: Number(row["Video Views"]),
-            link: row["Permalink"]
-        });
+        // NOTE: video_views deprecated after v21.0
+        // viewsData.push({
+        //     x: Date.parse(row["Timestamp"]),
+        //     y: Number(row["Video Views"]),
+        //     link: row["Permalink"]
+        // });
         replaysData.push({
             x: Date.parse(row["Timestamp"]),
             y: Number(row["Replays"]),
@@ -126,7 +128,8 @@ function createVideosChart(csvObject) {
         });
     }
     // Pop the total row
-    viewsData.pop();
+    // NOTE: video_views deprecated after v21.0
+    // viewsData.pop();
     replaysData.pop();
     playsData.pop();
     totalData.pop();
@@ -145,7 +148,9 @@ function createVideosChart(csvObject) {
             }
         },
         title: {
-            text: 'IGInsights: Video Trends (Video Views, Replays, Plays, Total Plays)'
+            // NOTE: video_views deprecated after v21.0
+            // text: 'IGInsights: Video Trends (Video Views, Replays, Plays, Total Plays)'
+            text: 'IGInsights: Video Trends (Replays, Plays, Total Plays)'
         },
         xAxis: {
             type: 'datetime',
@@ -159,11 +164,13 @@ function createVideosChart(csvObject) {
             },
             min: 0
         },
+        // NOTE: video_views deprecated after v21.0
+        // series: [{
+        //     name: 'Video Views over Time',
+        //     data: viewsData,
+        //     point: pointEvents
+        // },{
         series: [{
-            name: 'Video Views over Time',
-            data: viewsData,
-            point: pointEvents
-        },{
             name: 'Replays over Time',
             data: replaysData,
             point: pointEvents

@@ -65,7 +65,9 @@ async function getInsights(mediaMap) {
             if (!hasError(response) && mediaInfo.media_type === MEDIA_TYPE.VIDEO) {
                 // video metrics
                 log(`Getting video insights for mediaId: ${id}, ${i} of ${length}...`);
-                videoResponse = await fbGet(`${id}/insights?metric=video_views,clips_replays_count,plays,ig_reels_aggregated_all_plays_count,ig_reels_video_view_total_time`);
+                // NOTE: video_views deprecated after v21.0
+                // videoResponse = await fbGet(`${id}/insights?metric=video_views,clips_replays_count,plays,ig_reels_aggregated_all_plays_count,ig_reels_video_view_total_time`);
+                videoResponse = await fbGet(`${id}/insights?metric=clips_replays_count,plays,ig_reels_aggregated_all_plays_count,ig_reels_video_view_total_time`);
                 logJson(videoResponse);
                 if (hasError(videoResponse)) {
                     logError(videoResponse.error);
