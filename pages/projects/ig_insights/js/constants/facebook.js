@@ -18,9 +18,11 @@ export const INSIGHT = {
     TOTAL_INTERACTIONS: "total_interactions",
     // NOTE: video_views was deprecated after v21.0
     // VIDEO_VIEWS: "video_views",
-    REPLAYS: "clips_replays_count",
-    PLAYS: "plays",
-    TOTAL_PLAYS: "ig_reels_aggregated_all_plays_count",
+    // NOTE: clips_replays_count, plays, ig_reels_aggregated_all_plays_count deprecated after v22.0
+    // REPLAYS: "clips_replays_count",
+    // PLAYS: "plays",
+    // TOTAL_PLAYS: "ig_reels_aggregated_all_plays_count",
+    VIEWS: "views",
     TOTAL_WATCH_TIME: "ig_reels_video_view_total_time",
     FOLLOWS: "follows",
     IMPRESSIONS: "impressions",

@@ -98,9 +98,11 @@ function createTotalInteractionsChart(csvObject) {
 function createVideosChart(csvObject) {
     // NOTE: video_views deprecated after v21.0
     // let viewsData = [];
-    let replaysData = [];
-    let playsData = [];
-    let totalData = [];
+    // NOTE: clips_replays_count, plays, ig_reels_aggregated_all_plays_count deprecated after v22.0
+    // let replaysData = [];
+    // let playsData = [];
+    // let totalData = [];
+    let viewsData = [];
     for (const row of csvObject) {
         if (row["Errors"] || row["Media Type"] !== "VIDEO") {
             continue;
@@ -111,28 +113,36 @@ function createVideosChart(csvObject) {
         //     y: Number(row["Video Views"]),
         //     link: row["Permalink"]
         // });
-        replaysData.push({
+        // NOTE: clips_replays_count, plays, ig_reels_aggregated_all_plays_count deprecated after v22.0
+        // replaysData.push({
+        //     x: Date.parse(row["Timestamp"]),
+        //     y: Number(row["Replays"]),
+        //     link: row["Permalink"]
+        // });
+        // playsData.push({
+        //     x: Date.parse(row["Timestamp"]),
+        //     y: Number(row["Plays"]),
+        //     link: row["Permalink"]
+        // });
+        // totalData.push({
+        //     x: Date.parse(row["Timestamp"]),
+        //     y: Number(row["Total Plays"]),
+        //     link: row["Permalink"]
+        // });
+        viewsData.push({
             x: Date.parse(row["Timestamp"]),
-            y: Number(row["Replays"]),
-            link: row["Permalink"]
-        });
-        playsData.push({
-            x: Date.parse(row["Timestamp"]),
-            y: Number(row["Plays"]),
-            link: row["Permalink"]
-        });
-        totalData.push({
-            x: Date.parse(row["Timestamp"]),
-            y: Number(row["Total Plays"]),
+            y: Number(row["Views"]),
             link: row["Permalink"]
         });
     }
     // Pop the total row
     // NOTE: video_views deprecated after v21.0
     // viewsData.pop();
-    replaysData.pop();
-    playsData.pop();
-    totalData.pop();
+    // NOTE: clips_replays_count, plays, ig_reels_aggregated_all_plays_count deprecated after v22.0
+    // replaysData.pop();
+    // playsData.pop();
+    // totalData.pop();
+    viewsData.pop();
     const pointEvents = {
         events: {
             click() {
@@ -170,17 +180,23 @@ function createVideosChart(csvObject) {
         //     data: viewsData,
         //     point: pointEvents
         // },{
+        // NOTE: clips_replays_count, plays, ig_reels_aggregated_all_plays_count deprecated after v22.0
+        // series: [{
+        //     name: 'Replays over Time',
+        //     data: replaysData,
+        //     point: pointEvents
+        // },{
+        //     name: 'Plays over Time',
+        //     data: playsData,
+        //     point: pointEvents
+        // },{
+        //     name: 'Total Plays over Time',
+        //     data: totalData,
+        //     point: pointEvents
+        // }]
         series: [{
-            name: 'Replays over Time',
-            data: replaysData,
-            point: pointEvents
-        },{
-            name: 'Plays over Time',
-            data: playsData,
-            point: pointEvents
-        },{
-            name: 'Total Plays over Time',
-            data: totalData,
+            name: 'Views over Time',
+            data: viewsData,
             point: pointEvents
         }]
     });
