@@ -160,7 +160,9 @@ function createVideosChart(csvObject) {
         title: {
             // NOTE: video_views deprecated after v21.0
             // text: 'IGInsights: Video Trends (Video Views, Replays, Plays, Total Plays)'
-            text: 'IGInsights: Video Trends (Replays, Plays, Total Plays)'
+            // NOTE: clips_replays_count, plays, ig_reels_aggregated_all_plays_count deprecated after v22.0
+            // text: 'IGInsights: Video Trends (Replays, Plays, Total Plays)'
+            text: 'IGInsights: Video Trends (Views)'
         },
         xAxis: {
             type: 'datetime',
