@@ -69,7 +69,6 @@ async function getInsights(mediaMap) {
                 // videoResponse = await fbGet(`${id}/insights?metric=video_views,clips_replays_count,plays,ig_reels_aggregated_all_plays_count,ig_reels_video_view_total_time`);
                 // NOTE: clips_replays_count, plays, ig_reels_aggregated_all_plays_count deprecated after v22.0
                 // videoResponse = await fbGet(`${id}/insights?metric=clips_replays_count,plays,ig_reels_aggregated_all_plays_count,ig_reels_video_view_total_time`);
-
                 videoResponse = await fbGet(`${id}/insights?metric=views,ig_reels_video_view_total_time`);
                 logJson(videoResponse);
                 if (hasError(videoResponse)) {
